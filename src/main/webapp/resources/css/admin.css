@@ -1,0 +1,290 @@
+
+/*Common*/
+aside {
+    flex-direction: column;
+    flex: 1;
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-right: 30px;
+}
+
+main {
+    justify-content: flex-start;
+    flex-direction: column;
+    flex: 5;
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px 20px;
+}
+
+aside h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 4px;
+    font-weight: normal;
+}
+
+aside li {
+    list-style-type: none;
+    margin-bottom: 5px;
+}
+
+aside li:hover {
+    background-color: #969696;
+    color: white;
+}
+
+aside li a {
+    color: #5D5D5D;
+    text-decoration: none;
+    font-size: 110%;
+    display: block;
+    padding: 2px 6px;
+}
+
+aside li a:hover {
+    color: white;
+    font-weight: bold;
+}
+
+/*Users*/
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #cccccc;
+}
+
+th {
+    padding: 10px 5px;
+    font-weight: bold;
+}
+
+td {
+    padding: 8px 6px;
+    vertical-align: middle;
+}
+
+td.td-num {
+    text-align: center;
+}
+
+td.actions {
+    text-align: center;
+    padding: 8px 0;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+.delete-btn {
+    display: inline;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/*Manage user*/
+.user-content {
+    flex-direction: row;
+    width: 100%;
+}
+
+.user-form, .role-form {
+    flex: 1;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    padding: 16px;
+    align-items: flex-start;
+    width: 100%;
+    border: 2px solid #EEEEEE;
+    border-radius: 20px;
+}
+
+.user-form {
+    margin-right: 5%;
+}
+
+.role-form {
+    margin-left: 5%;
+}
+
+.user-form input, .update-btn {
+    width: 100%;
+    padding: 4px 6px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+input.update-btn {
+    cursor: pointer;
+    background: url(../images/button.png) repeat-x;
+    background-size: contain;
+    border: 0.5px solid #969696;
+}
+
+.update-btn:active {
+    background-image: url(../images/button-pressed.png);
+}
+
+.role-item {
+    flex-direction: row;
+    justify-content: center;
+    margin: 8px;
+}
+
+.role-item input {
+    margin-right: 10px;
+}
+
+.role-item input, .role-item label {
+    cursor: pointer;
+}
+
+/*Questions*/
+th.th-num {
+    width: 5%;
+}
+
+th.th-question {
+    width: 37%;
+}
+
+th.th-options{
+    width: 38%;
+}
+
+th.th-answers {
+    width: 10%;
+}
+
+th.th-actions {
+    width: 10%;
+}
+
+a.add-qn-btn {
+    width: 20%;
+    padding: 4px 6px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 0.5px solid #969696;
+    box-sizing: border-box;
+    cursor: pointer;
+    background: url(../images/button.png) repeat-x;
+    background-size: contain;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+}
+
+a.add-qn-btn:active {
+    background-image: url(../images/button-pressed.png);
+}
+
+/*Add question*/
+div.add-question {
+    flex-direction: column;
+    width: 40%;
+    margin: auto;
+    background-color: white;
+    border-radius: 15px;
+    align-items: center;
+    padding: 18px;
+}
+
+form.config-form {
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    margin-top: 10px;
+}
+
+div.hor {
+    flex-direction: row;
+    margin: 15px 0;
+}
+
+.config-form select option {
+    text-align: center;
+}
+
+input.next-btn {
+    align-self: flex-end;
+    padding: 4px 6px;
+    cursor: pointer;
+    background: url(../images/button.png) repeat-x;
+    background-size: contain;
+    border: 0.5px solid #969696;
+}
+
+input.next-btn:active {
+    background-image: url(../images/button-pressed.png);
+}
+
+.config-form label {
+    margin-right: 5px;
+}
+
+
+/*Add question 1*/
+div.add-question1 {
+    flex-direction: column;
+    margin: auto;
+    background-color: white;
+    border-radius: 15px;
+    align-items: center;
+    padding: 0 18px 18px;
+    min-width: 40%;
+}
+
+form.config-form1 {
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    width: 100%;
+}
+
+div.hor1 {
+    flex-direction: row;
+    margin: 6px 0;
+}
+
+.config-form1 .submit-btn {
+    margin-top: 10px;
+    align-self: flex-end;
+    padding: 4px 6px;
+    cursor: pointer;
+    background: url(../images/button.png) repeat-x;
+    background-size: contain;
+    border: 0.5px solid #969696;
+}
+
+.config-form1 .submit-btn:active {
+    background-image: url(../images/button-pressed.png);
+}
+
+.config-form1 label {
+    margin: 15px 5px 10px 0;
+}
+
+.config-form1 input.text {
+    border: 1px solid darkgrey;
+    padding: 3px 4px;
+    width: 95%;
+    box-sizing: border-box;
+}
+
+#question-input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.config-form1 textarea.code-field {
+    max-width: 800px;
+    max-height: 400px;
+}
