@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DispatcherServlet extends HttpServlet {
+public class DispatcherServletLegacy extends HttpServlet {
 
     private static final String PREFIX = "/WEB-INF/views/";
     private static final String SUFFIX = ".jsp";

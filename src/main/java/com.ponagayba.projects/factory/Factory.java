@@ -42,7 +42,7 @@ public class Factory {
     }
 
     public static Controller getLoginController() {
-        return new LoginController();
+        return new LoginControllerLegacy();
     }
 
     public static Controller getLogoutController() {
