@@ -7,27 +7,27 @@ import java.util.List;
 
 public interface UserDAO {
 
-    User getUser(String username, String password) throws SQLException;
+    User getUser(String username, String password);
 
-    User findById(int id) throws SQLException;
+    User findById(int id);
 
-    boolean userExists(String username) throws SQLException;
+    boolean findByUsername(String username);
 
-    void create(User user) throws SQLException;
+    void create(User user);
 
-    void updateToken(int userId, String token) throws SQLException;
+    void updateToken(int userId, String token);
 
-    User findByToken(String token) throws SQLException;
+    User findByToken(String token);
 
-    void removeToken(String token) throws SQLException;
+    void removeToken(String token);
 
-    void updateResults(User user) throws SQLException;
+    void updateResults(User user);
 
-    User findByEmail(String email) throws SQLException;
+    User findByEmail(String email);
 
-    List<User> getAll() throws SQLException;
+    List<User> getAll();
 
-    void deleteUser(int userId) throws SQLException;
+    void deleteUser(int userId);
 
-    void update(User user) throws SQLException;
+    void update(User user);
 }

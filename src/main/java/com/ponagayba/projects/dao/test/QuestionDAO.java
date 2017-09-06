@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface QuestionDAO {
 
-    List<Question> getAll() throws SQLException;
+    List<Question> getAll();
 
-    void addQuestion(Question question) throws SQLException;
+    void addQuestion(Question question);
 
-    void delete(int questionId) throws SQLException;
+    void delete(int questionId);
 
-    Question findById(int questionId) throws SQLException;
+    Question findById(int questionId);
 
-    void update(Question question) throws SQLException;
+    void update(Question question);
 }

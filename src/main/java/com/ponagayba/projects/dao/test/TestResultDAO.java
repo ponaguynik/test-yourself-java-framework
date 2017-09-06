@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface TestResultDAO {
 
-    void addTestResult(TestResult testResult) throws SQLException;
+    void create(TestResult testResult);
 
-    List<TestResult> getUserResults(Integer userId) throws SQLException;
+    List<TestResult> getUserResults(Integer userId);
 
-    void deleteUserTestResults(int userId) throws SQLException;
+    void deleteUserTestResults(int userId);
 }

@@ -2,6 +2,7 @@ package com.ponagayba.projects.dao.user;
 
 import com.ponagayba.projects.dao.AbstractDAO;
 import com.ponagayba.projects.model.Role;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -12,100 +13,56 @@ import java.util.List;
 public class RoleDAOImpl extends AbstractDAO implements RoleDAO {
 
     @Override
-    public Role findById(int roleId) throws SQLException {
+    public Role findById(int roleId) {
         String query =
-                "SELECT name " +
+                "SELECT id, name " +
                 "FROM test_yourself.role " +
                 "WHERE id=?;";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, roleId);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            return new Role(
-                    roleId,
-                    resultSet.getString("name")
-            );
-        }
-        return null;
+        return jdbcTemplate.queryForObject(query, new Object[] {roleId}, new BeanPropertyRowMapper<>(Role.class));
     }
 
     @Override
-    public Role findByName(String name) throws SQLException {
+    public Role findByName(String name) {
         String query =
                 "SELECT id, name " +
                 "FROM test_yourself.role " +
                 "WHERE name=?;";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, name);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            return new Role(
-                    resultSet.getInt("id"),
-                    resultSet.getString("name")
-            );
-        }
-        return null;
+        return jdbcTemplate.queryForObject(query, new Object[] {name}, new BeanPropertyRowMapper<>(Role.class));
     }
 
     @Override
-    public List<Role> getUserRoles(int userId) throws SQLException {
+    public List<Role> getUserRoles(int userId) {
         String query =
                 "SELECT r.id, r.name " +
                 "FROM test_yourself.user u " +
                 "JOIN test_yourself.user_to_role ur ON ur.user_id=u.id " +
                 "JOIN test_yourself.role r ON r.id=ur.role_id " +
                 "WHERE u.id=?;";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, userId);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        List<Role> result = new ArrayList<>();
-        while (resultSet.next()) {
-            result.add(new Role(
-                    resultSet.getInt("id"),
-                    resultSet.getString("name")
-            ));
-        }
-        return result;
+        return jdbcTemplate.query(query, new Object[] {userId}, new BeanPropertyRowMapper<>(Role.class));
     }
 
     @Override
-    public List<Role> getAll() throws SQLException {
+    public List<Role> getAll() {
         String query =
                 "SELECT id, name " +
                 "FROM test_yourself.role;";
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(query);
-        List<Role> result = new ArrayList<>();
-        while (resultSet.next()) {
-            Role role = new Role(
-                    resultSet.getInt("id"),
-                    resultSet.getString("name")
-            );
-            result.add(role);
-        }
-        return result;
+        return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Role.class));
     }
 
     @Override
-    public void deleteUserRoles(int userId) throws SQLException {
+    public void deleteUserRoles(int userId) {
         String query =
                 "DELETE FROM test_yourself.user_to_role " +
                 "WHERE user_id=?;";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, userId);
-        preparedStatement.execute();
+        jdbcTemplate.update(query, userId);
     }
 
     @Override
-    public void addRoleToUser(int userId, Role role) throws SQLException {
+    public void addRoleToUser(int userId, Role role) {
         String query =
                 "INSERT INTO test_yourself.user_to_role(user_id, role_id) " +
                 "VALUES(?, ?);";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, userId);
-        preparedStatement.setInt(2, role.getId());
-        preparedStatement.execute();
+        jdbcTemplate.update(query, userId, role.getId());
     }
-
 
 }

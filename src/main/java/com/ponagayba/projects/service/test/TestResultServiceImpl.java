@@ -16,7 +16,7 @@ public class TestResultServiceImpl implements TestResultService {
 
     @Override
     public void addTestResult(TestResult testResult) throws SQLException {
-        testResultDAO.addTestResult(testResult);
+        testResultDAO.create(testResult);
     }
 
     @Override

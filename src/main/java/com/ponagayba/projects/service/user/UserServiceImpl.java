@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean usernameExists(String username) throws SQLException {
-        return userDAO.userExists(username);
+        return userDAO.findByUsername(username);
     }
 
     @Override

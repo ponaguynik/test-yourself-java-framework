@@ -2,218 +2,120 @@ package com.ponagayba.projects.dao.user;
 
 import com.ponagayba.projects.dao.AbstractDAO;
 import com.ponagayba.projects.model.User;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
     @Override
-    public User findById(int id) throws SQLException {
+    public User findById(int id) {
         String query =
-                "SELECT username, email, password, token, last_result, best_result " +
+                "SELECT id, username, email, password, token, last_result, best_result " +
                 "FROM test_yourself.user " +
                 "WHERE id=?;";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, id);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        User user = null;
-        if (resultSet.next()) {
-            user = new User(
-                    id,
-                    resultSet.getString("username"),
-                    resultSet.getString("email"),
-                    resultSet.getString("password"),
-                    resultSet.getString("token"),
-                    resultSet.getInt("last_result"),
-                    resultSet.getInt("best_result")
-            );
-        }
-        return user;
+
+        return jdbcTemplate.queryForObject(query, new Object[]{id}, new BeanPropertyRowMapper<>(User.class));
     }
 
     @Override
-    public User getUser(String username, String password) throws SQLException {
+    public User getUser(String username, String password) {
         String query =
-                "SELECT id, email, token, last_result, best_result " +
+                "SELECT id, username, email, password, token, last_result, best_result " +
                 "FROM test_yourself.user " +
                 "WHERE username=? AND password=?;";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, username);
-        preparedStatement.setString(2, password);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        User user = null;
-        if (resultSet.next()) {
-            user = new User(
-                    resultSet.getInt("id"),
-                    username,
-                    resultSet.getString("email"),
-                    password,
-                    resultSet.getString("token"),
-                    resultSet.getInt("last_result"),
-                    resultSet.getInt("best_result")
-            );
-        }
-        return user;
+
+        return jdbcTemplate.queryForObject(query, new Object[]{username, password}, new BeanPropertyRowMapper<>(User.class));
     }
 
     @Override
-    public boolean userExists(String username) throws SQLException {
+    public boolean findByUsername(String username) {
         String query =
                 "SELECT id FROM test_yourself.user " +
                 "WHERE username=?;";
-        PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(query);
-        preparedStatement.setString(1, username);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        return resultSet.next();
+        User user = jdbcTemplate.queryForObject(query, new Object[] {username}, new BeanPropertyRowMapper<>(User.class));
+        return user != null;
     }
 
     @Override
-    public void create(User user) throws SQLException {
+    public void create(User user) {
         String query =
                 "INSERT INTO test_yourself.user(username, email, password) " +
                 "VALUES(?, ?, ?);";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, user.getUsername());
-        preparedStatement.setString(2, user.getEmail());
-        preparedStatement.setString(3, user.getPassword());
-        preparedStatement.execute();
+        jdbcTemplate.update(query, user.getUsername(), user.getEmail(), user.getPassword());
     }
 
     @Override
-    public void updateToken(int userId, String token) throws SQLException {
+    public void updateToken(int userId, String token) {
         String query =
                 "UPDATE test_yourself.user " +
                 "SET token=? " +
                 "WHERE id=?;";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, token);
-        preparedStatement.setInt(2, userId);
-        preparedStatement.execute();
+        jdbcTemplate.update(query, token, userId);
     }
 
     @Override
-    public User findByToken(String token) throws SQLException {
+    public User findByToken(String token) {
         String query =
-                "SELECT id, username, email, password, last_result, best_result " +
+                "SELECT id, username, email, password, token, last_result, best_result " +
                 "FROM test_yourself.user " +
                 "WHERE token=?;";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, token);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        User user = null;
-        if (resultSet.next()) {
-            user = new User(
-                    resultSet.getInt("id"),
-                    resultSet.getString("username"),
-                    resultSet.getString("email"),
-                    resultSet.getString("password"),
-                    token,
-                    resultSet.getInt("last_result"),
-                    resultSet.getInt("best_result")
-            );
-        }
-        return user;
+
+        return jdbcTemplate.queryForObject(query, new Object[]{token}, new BeanPropertyRowMapper<>(User.class));
     }
 
     @Override
-    public void removeToken(String token) throws SQLException {
+    public void removeToken(String token) {
         String query =
                 "UPDATE test_yourself.user " +
                 "SET token=NULL " +
                 "WHERE token=?;";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, token);
-        preparedStatement.execute();
+        jdbcTemplate.update(query, token);
     }
 
     @Override
-    public void updateResults(User user) throws SQLException {
+    public void updateResults(User user) {
         String query =
                 "UPDATE test_yourself.user " +
                 "SET last_result=?, best_result=? " +
                 "WHERE id=?;";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, user.getLastResult());
-        preparedStatement.setInt(2, user.getBestResult());
-        preparedStatement.setInt(3, user.getId());
-        preparedStatement.executeUpdate();
+        jdbcTemplate.update(query, user.getLastResult(), user.getBestResult(), user.getId());
     }
 
     @Override
-    public User findByEmail(String email) throws SQLException {
+    public User findByEmail(String email) {
         String query =
                 "SELECT id, username, email, password, token, last_result, best_result " +
                 "FROM test_yourself.user " +
                 "WHERE email=?;";
-        PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(query);
-        preparedStatement.setString(1, email);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        User user = null;
-        if (resultSet.next()) {
-            user = new User(
-                    resultSet.getInt("id"),
-                    resultSet.getString("username"),
-                    email,
-                    resultSet.getString("password"),
-                    resultSet.getString("token"),
-                    resultSet.getInt("last_result"),
-                    resultSet.getInt("best_result")
-            );
-        }
-        return user;
+        return jdbcTemplate.queryForObject(query, new Object[]{email}, new BeanPropertyRowMapper<>(User.class));
     }
 
     @Override
-    public List<User> getAll() throws SQLException {
+    public List<User> getAll() {
         String query =
                 "SELECT id, username, email, password, token, last_result, best_result " +
                 "FROM test_yourself.user;";
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(query);
-        List<User> result = new ArrayList<>();
-        while (resultSet.next()) {
-            User user = new User(
-                    resultSet.getInt("id"),
-                    resultSet.getString("username"),
-                    resultSet.getString("email"),
-                    resultSet.getString("password"),
-                    resultSet.getString("token"),
-                    resultSet.getInt("last_result"),
-                    resultSet.getInt("best_result")
-            );
-            result.add(user);
-        }
-        return result;
+        return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(User.class));
     }
 
     @Override
-    public void deleteUser(int userId) throws SQLException {
+    public void deleteUser(int userId) {
         String query =
                 "DELETE FROM test_yourself.user " +
                 "WHERE id=?;";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, userId);
-        preparedStatement.execute();
+        jdbcTemplate.update(query, userId);
     }
 
     @Override
-    public void update(User user) throws SQLException {
+    public void update(User user) {
         String query =
                 "UPDATE test_yourself.user " +
                 "SET username=?, email=?, password=?, token=?, last_result=?, best_result=? " +
                 "WHERE id=?;";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, user.getUsername());
-        preparedStatement.setString(2, user.getEmail());
-        preparedStatement.setString(3, user.getPassword());
-        preparedStatement.setString(4, user.getToken());
-        preparedStatement.setInt(5, user.getLastResult());
-        preparedStatement.setInt(6, user.getBestResult());
-        preparedStatement.setInt(7, user.getId());
-        preparedStatement.executeUpdate();
+        jdbcTemplate.update(query, user.getUsername(), user.getEmail(), user.getPassword(), user.getToken(),
+                user.getLastResult(), user.getBestResult(), user.getId());
     }
 }

@@ -8,15 +8,15 @@ import java.util.List;
 
 public interface RoleDAO {
 
-    Role findByName(String name) throws SQLException;
+    Role findByName(String name);
 
-    List<Role> getUserRoles(int userId) throws SQLException;
+    List<Role> getUserRoles(int userId);
 
-    List<Role> getAll() throws SQLException;
+    List<Role> getAll();
 
-    void deleteUserRoles(int userId) throws SQLException;
+    void deleteUserRoles(int userId);
 
-    void addRoleToUser(int userId, Role role) throws SQLException;
+    void addRoleToUser(int userId, Role role);
 
-    Role findById(int roleId) throws SQLException;
+    Role findById(int roleId);
 }
