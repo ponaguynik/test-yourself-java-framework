@@ -18,7 +18,13 @@ section {
 	align-items: flex-start;
 }
 
-#username-input, #email-input, #password-input, #conf-password-input {
+.error {
+    text-align: left;
+    color: #bb0008;
+    margin-bottom: 5px;
+}
+
+input.input-field {
 	width: 100%;
 	padding: 4px 6px;
 	margin: 8px 0;
@@ -40,7 +46,7 @@ section {
 	background-image: url(../images/button-pressed.png);
 }
 
-#sign-in {
+#login {
 	display: inline-block;
 	align-self: flex-end;
 	margin-top: 8px;
