@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     private TestResultService testResultService;
 
     @Override
-    public User findById(int id) throws SQLException {
+    public User findById(int id) {
         User result = userDAO.findById(id);
         if (result != null) {
             result.setRoles(roleDAO.getUserRoles(result.getId()));
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(String username, String password) throws SQLException {
+    public User getUser(String username, String password) {
         User result = userDAO.getUser(username, password);
         if (result != null) {
             result.setRoles(roleDAO.getUserRoles(result.getId()));
@@ -48,12 +48,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean usernameExists(String username) throws SQLException {
+    public boolean usernameExists(String username) {
         return userDAO.findByUsername(username);
     }
 
     @Override
-    public void addNewUser(User user) throws SQLException {
+    public void addNewUser(User user) {
         userDAO.create(user);
         User userDB = userDAO.getUser(user.getUsername(), user.getPassword());
         for (Role role : user.getRoles()) {
@@ -62,12 +62,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateToken(int userId, String token) throws SQLException {
+    public void updateToken(int userId, String token) {
         userDAO.updateToken(userId, token);
     }
 
     @Override
-    public User findByToken(String token) throws SQLException {
+    public User findByToken(String token) {
         User result = userDAO.findByToken(token);
         if (result != null) {
             result.setRoles(roleDAO.getUserRoles(result.getId()));
@@ -76,12 +76,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void removeToken(String token) throws SQLException {
+    public void removeToken(String token) {
         userDAO.removeToken(token);
     }
 
     @Override
-    public void updateResults(User user, TestResult testResult) throws SQLException {
+    public void updateResults(User user, TestResult testResult) {
         int lastResult = testService.percentageOfCorrectAnswers(testResult.getQuestions());
         user.setLastResult(lastResult);
         if (user.getLastResult() > user.getBestResult()) {
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserFromCookies(Cookie[] cookies) throws SQLException {
+    public User getUserFromCookies(Cookie[] cookies) {
         User result = null;
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -107,12 +107,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isEmailFree(String email) throws SQLException {
+    public boolean isEmailFree(String email) {
         return userDAO.findByEmail(email) == null;
     }
 
     @Override
-    public List<User> getAll() throws SQLException {
+    public List<User> getAll() {
         List<User> result = userDAO.getAll();
         for (User user : result) {
             user.setRoles(roleDAO.getUserRoles(user.getId()));
@@ -121,19 +121,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(int userId) throws SQLException {
+    public void deleteUser(int userId) {
         testResultService.deleteUserTestResults(userId);
         roleDAO.deleteUserRoles(userId);
         userDAO.deleteUser(userId);
     }
 
     @Override
-    public void updateUser(User user) throws SQLException {
+    public void updateUser(User user) {
         userDAO.update(user);
     }
 
     @Override
-    public boolean emailExists(String email) throws SQLException {
+    public boolean emailExists(String email) {
         return userDAO.findByEmail(email) != null;
     }
 }

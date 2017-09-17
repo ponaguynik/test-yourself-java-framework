@@ -13,9 +13,9 @@ public class QuestionDAOImpl extends AbstractDAO implements QuestionDAO {
     @Override
     public List<Question> getAll() {
         String query =
-                "SELECT id, question, code, options, option_type, answer " +
+                "SELECT id, question, code, options, answer " +
                 "FROM test_yourself.question;";
-        return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Question.class));
+        return jdbcTemplate.query(query, new QuestionRowMapper());
     }
 
     @Override
@@ -23,9 +23,9 @@ public class QuestionDAOImpl extends AbstractDAO implements QuestionDAO {
         String options = toStoringForm(question.getOptions());
         String answer = toStoringForm(question.getCorrectAnswers());
         String query =
-                "INSERT INTO test_yourself.question(question, code, options, option_type, answer)" +
+                "INSERT INTO test_yourself.question(question, code, options, answer)" +
                 "VALUES(?, ?, ?, ?, ?);";
-        jdbcTemplate.update(query, question.getQuestion(), question.getCode(), options, question.getOptionType(),
+        jdbcTemplate.update(query, question.getQuestion(), question.getCode(), options,
                 answer);
     }
 
@@ -40,7 +40,7 @@ public class QuestionDAOImpl extends AbstractDAO implements QuestionDAO {
     @Override
     public Question findById(int questionId) {
         String query =
-                "SELECT id, question, code, options, option_type, answer " +
+                "SELECT id, question, code, options, answer " +
                 "FROM test_yourself.question " +
                 "WHERE id=?;";
         return jdbcTemplate.queryForObject(query, new Object[] {questionId}, new QuestionRowMapper());
@@ -52,9 +52,9 @@ public class QuestionDAOImpl extends AbstractDAO implements QuestionDAO {
         String answer = toStoringForm(question.getCorrectAnswers());
         String query =
                 "UPDATE test_yourself.question " +
-                "SET question=?, code=?, options=?, option_type=?, answer=? " +
-                "WHERE id=?;";
-        jdbcTemplate.update(query, question.getQuestion(), question.getCode(), options, question.getOptionType(),
+                        "SET question=?, code=?, options=?, answer=? " +
+                        "WHERE id=?;";
+        jdbcTemplate.update(query, question.getQuestion(), question.getCode(), options,
                 answer, question.getId());
     }
 

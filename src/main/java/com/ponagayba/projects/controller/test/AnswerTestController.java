@@ -4,7 +4,6 @@ import com.ponagayba.projects.controller.Controller;
 import com.ponagayba.projects.model.test.Question;
 import com.ponagayba.projects.model.test.Test;
 import com.ponagayba.projects.service.test.QuestionService;
-import com.ponagayba.projects.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
@@ -14,12 +13,12 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
-public class AnswerTestController implements Controller {
+public class AnswerTestController {
 
     @Autowired
     private QuestionService questionService;
 
-    @Override
+    /*@Override
     public ModelAndView process(HttpServletRequest request) throws ServletException, IOException, SQLException {
         ModelAndView result = new ModelAndView("test/test");
         String[] answers = request.getParameterValues("answer");
@@ -59,5 +58,5 @@ public class AnswerTestController implements Controller {
             nextNum = test.getCurrentQn().getNum();
         }
         return nextNum;
-    }
+    }*/
 }

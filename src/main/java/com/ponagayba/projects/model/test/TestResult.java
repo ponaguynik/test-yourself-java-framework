@@ -1,17 +1,28 @@
 package com.ponagayba.projects.model.test;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class TestResult {
 
+    private Integer id;
     private Integer userId;
+    private LocalDateTime dateTime;
+    private Long duration;
+    private Integer questionsNum;
+    private Integer correctAnswersNum;
+
     private List<Question> questions;
-    private String result;
-    private String unansweredNum;
-    private String date;
-    private String time;
-    private String duration;
+    private Integer percent;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getUserId() {
         return userId;
@@ -19,6 +30,38 @@ public class TestResult {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public Long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Long duration) {
+        this.duration = duration;
+    }
+
+    public Integer getQuestionsNum() {
+        return questionsNum;
+    }
+
+    public void setQuestionsNum(Integer questionsNum) {
+        this.questionsNum = questionsNum;
+    }
+
+    public Integer getCorrectAnswersNum() {
+        return correctAnswersNum;
+    }
+
+    public void setCorrectAnswersNum(Integer correctAnswersNum) {
+        this.correctAnswersNum = correctAnswersNum;
     }
 
     public List<Question> getQuestions() {
@@ -29,43 +72,11 @@ public class TestResult {
         this.questions = questions;
     }
 
-    public String getResult() {
-        return result;
+    public Integer getPercent() {
+        return percent;
     }
 
-    public void setResult(String result) {
-        this.result = result;
-    }
-
-    public String getUnansweredNum() {
-        return unansweredNum;
-    }
-
-    public void setUnansweredNum(String unansweredNum) {
-        this.unansweredNum = unansweredNum;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+    public void setPercent(Integer percent) {
+        this.percent = percent;
     }
 }

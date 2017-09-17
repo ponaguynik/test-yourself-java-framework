@@ -5,7 +5,6 @@ import com.ponagayba.projects.model.Role;
 import com.ponagayba.projects.model.User;
 import com.ponagayba.projects.service.user.RoleService;
 import com.ponagayba.projects.service.user.UserService;
-import com.ponagayba.projects.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
@@ -23,7 +22,7 @@ public class SignUpControllerLegacy implements Controller {
     @Autowired
     private RoleService roleService;
 
-    @Override
+/*    @Override
     public ModelAndView process(HttpServletRequest request) throws ServletException, IOException, SQLException {
         ModelAndView result = new ModelAndView();
         String username = request.getParameter("username");
@@ -62,5 +61,5 @@ public class SignUpControllerLegacy implements Controller {
         roles.add(roleService.findByName("user"));
         newUser.setRoles(roles);
         userService.addNewUser(newUser);
-    }
+    }*/
 }

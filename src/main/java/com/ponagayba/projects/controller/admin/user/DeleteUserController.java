@@ -2,7 +2,6 @@ package com.ponagayba.projects.controller.admin.user;
 
 import com.ponagayba.projects.controller.Controller;
 import com.ponagayba.projects.service.user.UserService;
-import com.ponagayba.projects.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
@@ -12,7 +11,7 @@ import java.sql.SQLException;
 
 public class DeleteUserController implements Controller {
 
-    @Autowired
+/*    @Autowired
     private UserService userService;
 
     @Override
@@ -22,5 +21,5 @@ public class DeleteUserController implements Controller {
         userService.deleteUser(userId);
         result.setRedirect(true);
         return result;
-    }
+    }*/
 }

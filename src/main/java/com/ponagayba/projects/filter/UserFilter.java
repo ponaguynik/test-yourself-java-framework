@@ -24,11 +24,7 @@ public class UserFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         User user;
-        try {
-            user = userService.getUserFromCookies(req.getCookies());
-        } catch (SQLException e) {
-            throw new ServletException(e);
-        }
+        user = userService.getUserFromCookies(req.getCookies());
         if (user != null) {
             req.setAttribute("user", user);
         }

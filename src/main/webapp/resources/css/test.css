@@ -16,14 +16,14 @@
 	background: #dadada none;
 }
 
-.answer-btn {
+.answer-btn, .cancel-btn {
 	width: initial;
 	padding: 6px 16px;
 	background-image: url(../images/answer-btn.png);
 	color: white;
 }
 
-.answer-btn:active {
+.answer-btn:active, .cancel-btn:active {
 	background-image: url(../images/answer-btn-pressed.png);
 }
 
@@ -58,4 +58,8 @@ main pre {
 
 .answer label {
 	margin-left: 5px;
+}
+
+p.error {
+	color: #e50008;
 }

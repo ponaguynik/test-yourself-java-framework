@@ -27,7 +27,6 @@ public class SignUpFormValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "email.required");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "password.required");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confPassword", "confirm.password.required");
-
     }
 
     private boolean checkLength(String value, int min, int max) {

@@ -15,17 +15,17 @@ public class TestResultServiceImpl implements TestResultService {
     private TestResultDAO testResultDAO;
 
     @Override
-    public void addTestResult(TestResult testResult) throws SQLException {
+    public void addTestResult(TestResult testResult) {
         testResultDAO.create(testResult);
     }
 
     @Override
-    public List<TestResult> getUserResults(Integer id) throws SQLException {
+    public List<TestResult> getUserResults(Integer id) {
         return testResultDAO.getUserResults(id);
     }
 
     @Override
-    public void deleteUserTestResults(int userId) throws SQLException {
+    public void deleteUserTestResults(int userId) {
         testResultDAO.deleteUserTestResults(userId);
     }
 }

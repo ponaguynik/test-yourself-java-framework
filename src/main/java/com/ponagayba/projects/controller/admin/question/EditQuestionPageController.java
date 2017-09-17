@@ -3,7 +3,6 @@ package com.ponagayba.projects.controller.admin.question;
 import com.ponagayba.projects.controller.Controller;
 import com.ponagayba.projects.model.test.Question;
 import com.ponagayba.projects.service.test.QuestionService;
-import com.ponagayba.projects.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
@@ -13,7 +12,7 @@ import java.sql.SQLException;
 
 public class EditQuestionPageController implements Controller {
 
-    @Autowired
+/*    @Autowired
     private QuestionService questionService;
 
     @Override
@@ -24,5 +23,5 @@ public class EditQuestionPageController implements Controller {
         result.setAttribute("question", question);
         result.setAttribute("page", "editQuestion");
         return result;
-    }
+    }*/
 }

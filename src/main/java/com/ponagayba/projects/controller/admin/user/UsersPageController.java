@@ -3,7 +3,6 @@ package com.ponagayba.projects.controller.admin.user;
 import com.ponagayba.projects.controller.Controller;
 import com.ponagayba.projects.model.User;
 import com.ponagayba.projects.service.user.UserService;
-import com.ponagayba.projects.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
@@ -15,7 +14,7 @@ import java.util.List;
 
 public class UsersPageController implements Controller {
 
-    @Autowired
+/*    @Autowired
     private UserService userService;
 
     @Override
@@ -26,5 +25,5 @@ public class UsersPageController implements Controller {
         result.setAttribute("users", users);
         result.setAttribute("page", "users");
         return result;
-    }
+    }*/
 }

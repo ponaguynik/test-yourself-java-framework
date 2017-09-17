@@ -14,11 +14,6 @@ public class EmailNotExistsValidator implements ConstraintValidator<EmailNotExis
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        try {
-            return !userService.emailExists(value);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+        return !userService.emailExists(value);
     }
 }

@@ -4,7 +4,6 @@ import com.ponagayba.projects.controller.Controller;
 import com.ponagayba.projects.model.User;
 import com.ponagayba.projects.model.test.TestResult;
 import com.ponagayba.projects.service.test.TestResultService;
-import com.ponagayba.projects.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
@@ -19,7 +18,7 @@ public class ResultsPageController implements Controller {
     @Autowired
     private TestResultService testResultService;
 
-    @Override
+/*    @Override
     public ModelAndView process(HttpServletRequest request) throws ServletException, IOException, SQLException {
         ModelAndView result = new ModelAndView("user/results");
         User user = (User) request.getAttribute("user");
@@ -27,5 +26,5 @@ public class ResultsPageController implements Controller {
         Collections.reverse(results);
         result.setAttribute("results", results);
         return result;
-    }
+    }*/
 }

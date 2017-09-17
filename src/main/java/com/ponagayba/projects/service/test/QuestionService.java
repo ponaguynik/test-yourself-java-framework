@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface QuestionService {
 
-    List<Question> getAll() throws SQLException;
+    List<Question> getAll() ;
 
     List<Question> getRandomQuestions(List<Question> questions, int num);
 
@@ -15,11 +15,11 @@ public interface QuestionService {
 
     void resetAnswers(Question question);
 
-    void addQuestion(Question question) throws SQLException;
+    void addQuestion(Question question) ;
 
-    void deleteQuestion(int questionId) throws SQLException;
+    void deleteQuestion(int questionId) ;
 
-    Question findById(int questionId) throws SQLException;
+    Question findById(int questionId) ;
 
-    void updateQuestion(Question question) throws SQLException;
+    void updateQuestion(Question question) ;
 }

@@ -5,7 +5,6 @@ import com.ponagayba.projects.model.Role;
 import com.ponagayba.projects.model.User;
 import com.ponagayba.projects.service.user.RoleService;
 import com.ponagayba.projects.service.user.UserService;
-import com.ponagayba.projects.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
@@ -16,7 +15,7 @@ import java.util.List;
 
 public class UpdateUserController implements Controller {
 
-    @Autowired
+ /*   @Autowired
     private UserService userService;
 
     @Autowired
@@ -45,5 +44,5 @@ public class UpdateUserController implements Controller {
         result.setAttribute("managedUser", user);
         result.setAttribute("page", "manageUser");
         return result;
-    }
+    }*/
 }

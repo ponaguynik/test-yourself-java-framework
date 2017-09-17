@@ -1,74 +1,86 @@
 package com.ponagayba.projects.controller.test;
 
-import com.ponagayba.projects.controller.Controller;
-import com.ponagayba.projects.model.User;
+import com.ponagayba.projects.model.test.Answer;
 import com.ponagayba.projects.model.test.Question;
 import com.ponagayba.projects.model.test.Test;
-import com.ponagayba.projects.service.test.QuestionService;
-import com.ponagayba.projects.servlet.ModelAndView;
+import com.ponagayba.projects.model.test.TestResult;
+import com.ponagayba.projects.service.test.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
+import java.util.Locale;
 
-public class TestController implements Controller {
+@Controller
+@RequestMapping("/test")
+@SessionAttributes("test")
+public class TestController {
 
     @Autowired
-    private QuestionService questionService;
+    private TestService testService;
 
-    @Override
-    public ModelAndView process(HttpServletRequest request) throws ServletException, IOException, SQLException {
-        ModelAndView result = new ModelAndView("test/test");
-        if (request.getSession().getAttribute("test") == null) {
-            prepareTest(request, result);
+    @Autowired
+    private MessageSource messageSource;
+
+    @ModelAttribute("answer")
+    public Answer addAnswer() {
+        return new Answer();
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String test(HttpSession session, Model model) {
+        if (session.getAttribute("test") == null) {
+            model.addAttribute("test", testService.prepareTest());
         }
-        setCurrentQuestion(request, result);
-        return result;
+        return redirectToQuestion(1);
     }
 
-    private void prepareTest(HttpServletRequest request, ModelAndView mv) throws SQLException {
-        User user = (User) request.getAttribute("user");
-        List<Question> questions = questionService.getAll();
-        List<Question> randomQuestions = questionService.getRandomQuestions(questions, 10);
-        Test test = new Test();
-        test.setUserId(user.getId());
-        test.setQuestions(randomQuestions);
-        test.setStartTime(System.nanoTime());
-        mv.setSessionAttribute("test", test);
-    }
-
-    private int getQuestionNum(HttpServletRequest request) {
-        int qnNum;
+    @RequestMapping(value = "/question", method = RequestMethod.GET)
+    public String changeQuestion(@RequestParam("num") int qnNum, @SessionAttribute Test test) {
+        Question nextQn;
         try {
-            qnNum = Integer.parseInt(request.getParameter("qnNum"));
-        } catch (NumberFormatException e) {
-            try {
-                qnNum = (int) request.getAttribute("qnNum");
-            } catch (NullPointerException e1) {
-                qnNum = 1;
-            }
+            nextQn = test.getQuestions().get(qnNum - 1);
+        } catch (IndexOutOfBoundsException e) {
+            return redirectToQuestion(test.getQuestions().size());
         }
-        return qnNum;
+        test.getCurrentQn().setActive(false);
+        nextQn.setActive(true);
+        test.setCurrentQn(nextQn);
+        return "test/test";
     }
 
-    private void setCurrentQuestion(HttpServletRequest request, ModelAndView mv) {
-        int qnNum = getQuestionNum(request);
-        HttpSession session = request.getSession();
-        Test test = (Test) session.getAttribute("test");
-        if (test == null) {
-            test = (Test) mv.getSessionAttribute("test");
+    @RequestMapping(value = "/question/answer", method = RequestMethod.POST)
+    public String answerQuestion(@SessionAttribute Test test, @ModelAttribute Answer answer,
+                                 Model model, Locale locale) {
+        if (answer.getChosenOptions().isEmpty()) {
+            model.addAttribute("answerError",
+                    messageSource.getMessage("option.required", null, locale));
+            return "test/test";
+        } else {
+            testService.answerQuestion(test.getCurrentQn(), answer);
+            return redirectToQuestion(test.getCurrentQn().getNum());
         }
-        for (Question question : test.getQuestions()) {
-            if (question.getNum() == qnNum) {
-                question.setActive(true);
-            } else {
-                question.setActive(false);
-            }
-        }
-        test.setCurrentQn(test.getQuestions().get(qnNum-1));
+    }
+
+    @RequestMapping(value = "/question/cancel", method = RequestMethod.GET)
+    public String cancelQuestion(@SessionAttribute Test test) {
+        testService.resetAnswer(test.getCurrentQn());
+        return redirectToQuestion(test.getCurrentQn().getNum());
+    }
+
+    @RequestMapping(value = "/finish", method = RequestMethod.GET)
+    public String finishTest(@SessionAttribute Test test, Model model, SessionStatus sessionStatus) {
+        TestResult testResult = testService.generateTestResult(test);
+        model.addAttribute("testResult", testResult);
+        sessionStatus.setComplete();
+        return "test/testResult";
+    }
+
+    private String redirectToQuestion(int num) {
+        return "redirect:/test/question?num=" + num;
     }
 }

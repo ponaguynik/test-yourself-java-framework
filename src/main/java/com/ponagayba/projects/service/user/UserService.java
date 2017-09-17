@@ -9,31 +9,31 @@ import java.util.List;
 
 public interface UserService {
 
-    User findById(int id) throws SQLException;
+    User findById(int id);
 
-    User getUser(String username, String password) throws SQLException;
+    User getUser(String username, String password);
 
-    boolean usernameExists(String username) throws SQLException;
+    boolean usernameExists(String username);
 
-    void addNewUser(User user) throws SQLException;
+    void addNewUser(User user);
 
-    void updateToken(int userId, String token) throws SQLException;
+    void updateToken(int userId, String token);
 
-    User findByToken(String token) throws SQLException;
+    User findByToken(String token);
 
-    void removeToken(String token) throws SQLException;
+    void removeToken(String token);
 
-    void updateResults(User user, TestResult testResult) throws SQLException;
+    void updateResults(User user, TestResult testResult);
 
-    User getUserFromCookies(Cookie[] cookies) throws SQLException;
+    User getUserFromCookies(Cookie[] cookies);
 
-    boolean isEmailFree(String email) throws SQLException;
+    boolean isEmailFree(String email);
 
-    List<User> getAll() throws SQLException;
+    List<User> getAll();
 
-    void deleteUser(int userId) throws SQLException;
+    void deleteUser(int userId);
 
-    void updateUser(User user) throws SQLException;
+    void updateUser(User user);
 
-    boolean emailExists(String email) throws SQLException;
+    boolean emailExists(String email);
 }

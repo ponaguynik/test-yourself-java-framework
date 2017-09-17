@@ -12,11 +12,11 @@ public class TestResultDAOImpl extends AbstractDAO implements TestResultDAO {
 
     @Override
     public void create(TestResult testResult) {
-        String query =
+/*        String query =
                 "INSERT INTO test_yourself.test_result(user_id, date, time, result, duration) " +
                 "VALUES(?, ?, ?, ?, ?);";
         jdbcTemplate.update(query, testResult.getUserId(), testResult.getDate(), testResult.getTime(),
-                testResult.getResult(), testResult.getDuration());
+                testResult.getResult(), testResult.getDuration());*/
     }
 
     @Override

@@ -8,7 +8,6 @@ public class Question {
     private int num;
     private String question;
     private String code;
-    private String optionType;
     private List<String> options;
     private List<String> correctAnswers;
     private List<String> answers;
@@ -19,11 +18,10 @@ public class Question {
     public Question() {
     }
 
-    public Question(String question, String code, List<String> options, String optionType, List<String> correctAnswers) {
+    public Question(String question, String code, List<String> options, List<String> correctAnswers) {
         this.question = question;
         this.code = code;
         this.options = options;
-        this.optionType = optionType;
         this.correctAnswers = correctAnswers;
     }
 
@@ -61,14 +59,6 @@ public class Question {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public String getOptionType() {
-        return optionType;
-    }
-
-    public void setOptionType(String optionType) {
-        this.optionType = optionType;
     }
 
     public List<String> getOptions() {

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="springForm" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="../header.jsp">
     <jsp:param name="css" value="testResult.css" />
     <jsp:param name="js" value="highlighter" />
@@ -10,34 +11,30 @@
         <table>
             <thead>
             <tr>
-                <th colspan="2">Result: <c:out value="${requestScope.testResult.result}"/></th>
+                <th colspan="2">Result: ${testResult.correctAnswersNum}/${testResult.questionsNum}</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>Number of unanswered questions:</td>
-                <td class="align-center"><c:out value="${requestScope.testResult.unansweredNum}"/></td>
-            </tr>
-            <tr>
                 <td>Duration:</td>
-                <td class="align-center"><c:out value="${requestScope.testResult.duration}"/></td>
+                <td class="align-center">${testResult.duration}</td>
             </tr>
             <tr>
                 <td>Date:</td>
-                <td class="align-center"><c:out value="${requestScope.testResult.date}"/></td>
+                <td class="align-center">${testResult.dateTime}</td>
             </tr>
             <tr>
                 <td>Time:</td>
-                <td class="align-center"><c:out value="${requestScope.testResult.time}"/></td>
+                <td class="align-center">${testResult.dateTime}</td>
             </tr>
             </tbody>
         </table>
     </div>
-    <c:forEach items="${requestScope.testResult.questions}" var="question">
+    <c:forEach items="${testResult.questions}" var="question">
         <div class="item">
             <div class="question">
                 <div class="question-text flex-container">
-                    <p><c:out value="${question.num}"/>. <c:out value="${question.question}"/></p>
+                    <p>${question.num}. ${question.question}</p>
                     <c:choose>
                         <c:when test="${question.correct}">
                             <img src="${pageContext.request.contextPath}/resources/images/correct.png" alt="correct">
@@ -49,7 +46,7 @@
                 </div>
                 <c:if test="${question.code != null}">
                     <br>
-                    <pre><code class="java"><c:out value="${question.code}"/></code></pre>
+                    <pre><code class="java">${question.code}</code></pre>
                 </c:if>
             </div>
             <br>
@@ -59,16 +56,12 @@
                     <c:forEach items="${question.options}" var="item" varStatus="count">
                         <c:set var="checked" value="false" />
                         <c:set var="correct" value="false" />
-                        <c:forEach var="itm" items="${question.answers}">
-                            <c:if test="${count.index+1 eq itm}">
-                                <c:set var="checked" value="true"/>
-                            </c:if>
-                        </c:forEach>
-                        <c:forEach var="itm" items="${question.correctAnswers}">
-                            <c:if test="${count.index+1 eq itm}">
-                                <c:set var="correct" value="true"/>
-                            </c:if>
-                        </c:forEach>
+                        <c:if test="${question.correctAnswers.contains(item)}">
+                            <c:set var="correct" value="true"/>
+                        </c:if>
+                        <c:if test="${question.answers.contains(item)}">
+                            <c:set var="checked" value="true"/>
+                        </c:if>
                         <c:choose>
                             <c:when test="${correct}">
                                 <div class="image">
@@ -88,10 +81,10 @@
                         </c:choose>
                         <c:choose>
                             <c:when test="${checked}">
-                                <input id="opt${idNum}" type="${question.optionType}" name="answer" value="${count.index+1}" checked disabled>
+                                <input id="opt${idNum}" type="checkbox" name="answer" value="${count.index+1}" checked disabled>
                             </c:when>
                             <c:otherwise>
-                                <input id="opt${idNum}" type="${question.optionType}" name="answer" value="${count.index+1}" disabled>
+                                <input id="opt${idNum}" type="checkbox" name="answer" value="${count.index+1}" disabled>
                             </c:otherwise>
                         </c:choose>
                         <label for="opt${idNum}">${item}</label>
@@ -103,6 +96,6 @@
         </div>
     </c:forEach>
     <br>
-    <a class="btn" href="<c:url value="/test"/>">Try Again</a>
+    <a class="btn" href="/test">Try Again</a>
 </main>
 <jsp:include page="../footer.jsp" />

@@ -5,7 +5,6 @@ import com.ponagayba.projects.model.Role;
 import com.ponagayba.projects.model.User;
 import com.ponagayba.projects.service.user.RoleService;
 import com.ponagayba.projects.service.user.UserService;
-import com.ponagayba.projects.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
@@ -17,7 +16,7 @@ import java.util.List;
 
 public class UpdateUserRolesController implements Controller {
 
-    @Autowired
+/*    @Autowired
     private UserService userService;
 
     @Autowired
@@ -52,5 +51,5 @@ public class UpdateUserRolesController implements Controller {
             result.add(roleService.findById(roleId));
         }
         return result;
-    }
+    }*/
 }

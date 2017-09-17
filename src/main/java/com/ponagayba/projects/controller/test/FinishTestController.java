@@ -7,7 +7,6 @@ import com.ponagayba.projects.model.test.TestResult;
 import com.ponagayba.projects.service.test.TestResultService;
 import com.ponagayba.projects.service.test.TestService;
 import com.ponagayba.projects.service.user.UserService;
-import com.ponagayba.projects.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
@@ -17,7 +16,7 @@ import java.sql.SQLException;
 
 public class FinishTestController implements Controller {
 
-    @Autowired
+/*    @Autowired
     private TestService testService;
 
     @Autowired
@@ -60,5 +59,5 @@ public class FinishTestController implements Controller {
         User user = userService.findById(testResult.getUserId());
         userService.updateResults(user, testResult);
         testResultService.addTestResult(testResult);
-    }
+    }*/
 }

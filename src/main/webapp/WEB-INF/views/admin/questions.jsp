@@ -14,7 +14,7 @@
         <th class="th-num">№</th>
         <th class="th-question">Question</th>
         <th class="th-options">Options</th>
-        <th class="th-answers">Answer</th>
+        <th class="th-chosenOptions">Answer</th>
         <th class="th-actions">Actions</th>
     </tr>
     <c:forEach var="question" items="${requestScope.questions}" varStatus="qnCount">

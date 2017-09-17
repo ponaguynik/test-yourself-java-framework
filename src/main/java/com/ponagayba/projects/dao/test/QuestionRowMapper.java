@@ -19,7 +19,6 @@ public class QuestionRowMapper implements RowMapper<Question> {
         result.setQuestion(rs.getString("question"));
         result.setCode(rs.getString("code"));
         result.setOptions(options);
-        result.setOptionType(rs.getString("option_type"));
         result.setAnswers(answer);
         return result;
     }

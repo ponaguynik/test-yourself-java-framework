@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface TestResultService {
 
-    void addTestResult(TestResult testResult) throws SQLException;
+    void addTestResult(TestResult testResult);
 
-    List<TestResult> getUserResults(Integer id) throws SQLException;
+    List<TestResult> getUserResults(Integer id);
 
-    void deleteUserTestResults(int userId) throws SQLException;
+    void deleteUserTestResults(int userId);
 }

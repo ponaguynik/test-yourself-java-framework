@@ -12,7 +12,7 @@
         <br>
         <p style="color: red;"><c:out value="${requestScope.error}"/></p>
     </c:if>
-    <springForm:form method="post" action="signup" commandName="user">
+    <springForm:form method="post" action="signup" modelAttribute="user">
         <div id="form-container" class="flex-container">
             <springForm:errors path="username" cssClass="error"/>
             <springForm:label path="username" for="username-input"><spring:message code="label.username"/>:</springForm:label>

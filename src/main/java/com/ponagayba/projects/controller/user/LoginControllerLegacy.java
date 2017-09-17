@@ -3,7 +3,6 @@ package com.ponagayba.projects.controller.user;
 import com.ponagayba.projects.controller.Controller;
 import com.ponagayba.projects.model.User;
 import com.ponagayba.projects.service.user.UserService;
-import com.ponagayba.projects.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
@@ -19,7 +18,7 @@ public class LoginControllerLegacy implements Controller {
     @Autowired
     private UserService userService;
 
-    @Override
+/*    @Override
     public ModelAndView process(HttpServletRequest request) throws ServletException, IOException, SQLException {
         ModelAndView result = new ModelAndView();
         String username = request.getParameter("username");
@@ -41,5 +40,5 @@ public class LoginControllerLegacy implements Controller {
         String token = user.getUsername() + System.nanoTime();
         user.setToken(token);
         userService.updateToken(user.getId(), user.getToken());
-    }
+    }*/
 }

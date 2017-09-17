@@ -17,7 +17,7 @@ public class QuestionServiceImpl implements QuestionService {
     private QuestionDAO questionDAO;
 
     @Override
-    public List<Question> getAll() throws SQLException {
+    public List<Question> getAll()  {
         return questionDAO.getAll();
     }
 
@@ -60,22 +60,22 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public void addQuestion(Question question) throws SQLException {
+    public void addQuestion(Question question)  {
         questionDAO.addQuestion(question);
     }
 
     @Override
-    public void deleteQuestion(int questionId) throws SQLException {
+    public void deleteQuestion(int questionId)  {
         questionDAO.delete(questionId);
     }
 
     @Override
-    public Question findById(int questionId) throws SQLException {
+    public Question findById(int questionId)  {
         return questionDAO.findById(questionId);
     }
 
     @Override
-    public void updateQuestion(Question question) throws SQLException {
+    public void updateQuestion(Question question)  {
         questionDAO.update(question);
     }
 }
