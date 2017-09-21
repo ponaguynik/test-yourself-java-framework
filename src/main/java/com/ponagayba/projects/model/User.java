@@ -29,6 +29,8 @@ public class User {
     @Size(min = 4, max = 20)
     private String password;
 
+    private boolean enabled;
+
     private String confPassword;
 
     private String token;
@@ -50,12 +52,14 @@ public class User {
         this.email = email;
     }
 
-    public User(Integer id, String username, String email, String password, String token, Integer lastResult, Integer bestResult) {
+    public User(Integer id, String username, String email, String password, String token, Integer lastResult,
+                Integer bestResult, boolean enabled) {
         this(username, email, password);
         this.id = id;
         this.token = token;
         this.lastResult = lastResult;
         this.bestResult = bestResult;
+        this.enabled = enabled;
     }
 
     public User(User user) {
@@ -66,7 +70,8 @@ public class User {
                 user.getPassword(),
                 user.getToken(),
                 user.getLastResult(),
-                user.getBestResult()
+                user.getBestResult(),
+                user.isEnabled()
         );
         this.roles = user.getRoles();
         this.admin = user.isAdmin();
@@ -151,5 +156,13 @@ public class User {
 
     public void setConfPassword(String confPassword) {
         this.confPassword = confPassword;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

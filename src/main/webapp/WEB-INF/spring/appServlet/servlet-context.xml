@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:mvc="http://www.springframework.org/schema/mvc"
-        xmlns:context="http://www.springframework.org/schema/context"
-        xsi:schemaLocation="
-        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <mvc:annotation-driven/>
 
@@ -42,6 +43,46 @@
         </bean>
     </mvc:interceptors>
 
+    <security:http auto-config="true">
+        <security:intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')"/>
+        <security:form-login
+            login-page="/login"
+            default-target-url="/"
+            authentication-failure-url="/login?error"
+            username-parameter="username"
+            password-parameter="password"
+            login-processing-url="/j_spring_security_check"
+        />
+        <security:logout
+                logout-url="/j_spring_security_logout"
+                logout-success-url="/login?logout"/>
+        <security:csrf/>
+    </security:http>
+
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:jdbc-user-service
+                    data-source-ref="dataSource"
+                    users-by-username-query="
+                    SELECT username, password, enabled
+                    FROM test_yourself.user
+                    WHERE username=?;"
+                    authorities-by-username-query="
+                    SELECT username, r.name role
+                    FROM test_yourself.user u
+                    JOIN test_yourself.user_to_role utr ON u.id=utr.user_id
+                    JOIN test_yourself.role r ON r.id=utr.role_id
+                    WHERE u.username=?;"/>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
     <context:component-scan base-package="com.ponagayba.projects"/>
 
+    <aop:aspectj-autoproxy />
+
+    <bean id="defaultWebSecurityExpressionHandler"
+          class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+
+    <bean name="userAspect" class="com.ponagayba.projects.aspect.UserAspect"/>
+    <bean name="testAspect" class="com.ponagayba.projects.aspect.TestAspect"/>
 </beans>

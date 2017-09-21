@@ -31,12 +31,11 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     }
 
     @Override
-    public boolean findByUsername(String username) {
+    public User getByUsername(String username) {
         String query =
-                "SELECT id FROM test_yourself.user " +
+                "SELECT id, username, password, email, last_result, best_result, enabled FROM test_yourself.user " +
                 "WHERE username=?;";
-        User user = jdbcTemplate.queryForObject(query, new Object[] {username}, new BeanPropertyRowMapper<>(User.class));
-        return user != null;
+        return jdbcTemplate.queryForObject(query, new Object[] {username}, new BeanPropertyRowMapper<>(User.class));
     }
 
     @Override

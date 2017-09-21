@@ -3,13 +3,18 @@ main {
     justify-content: center;
 }
 
-div {
+div.error-container {
     text-align: center;
     margin-top: 50px;
 }
 
-h2 span {
+p.error {
     font-size: 300%;
+    font-weight: bold;
+}
+
+p.desc {
+    font-size: 250%;
     font-weight: bold;
 }
 

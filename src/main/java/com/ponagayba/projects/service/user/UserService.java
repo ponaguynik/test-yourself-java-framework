@@ -36,4 +36,6 @@ public interface UserService {
     void updateUser(User user);
 
     boolean emailExists(String email);
+
+    User getByUsername(String username);
 }

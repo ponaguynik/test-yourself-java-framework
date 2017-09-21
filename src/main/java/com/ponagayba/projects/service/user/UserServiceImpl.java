@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
-import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -49,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean usernameExists(String username) {
-        return userDAO.findByUsername(username);
+        return userDAO.getByUsername(username) != null;
     }
 
     @Override
@@ -135,5 +134,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean emailExists(String email) {
         return userDAO.findByEmail(email) != null;
+    }
+
+    @Override
+    public User getByUsername(String username) {
+        User result = userDAO.getByUsername(username);
+        if (result != null) {
+            result.setRoles(roleDAO.getUserRoles(result.getId()));
+        }
+        return result;
     }
 }
