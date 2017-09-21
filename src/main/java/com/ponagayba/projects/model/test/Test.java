@@ -7,10 +7,19 @@ import java.util.List;
 
 public class Test {
 
+    private Integer userId;
     private List<Question> questions = new ArrayList<>();
     private Question currentQn;
     private Answer answer;
     private LocalDateTime startDateTime;
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
     public List<Question> getQuestions() {
         return questions;

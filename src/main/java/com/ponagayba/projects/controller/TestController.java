@@ -1,10 +1,11 @@
-package com.ponagayba.projects.controller.test;
+package com.ponagayba.projects.controller;
 
 import com.ponagayba.projects.model.test.Answer;
 import com.ponagayba.projects.model.test.Question;
 import com.ponagayba.projects.model.test.Test;
 import com.ponagayba.projects.model.test.TestResult;
 import com.ponagayba.projects.service.test.TestService;
+import com.ponagayba.projects.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.Locale;
 
 @Controller
@@ -24,6 +26,9 @@ public class TestController {
     private TestService testService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private MessageSource messageSource;
 
     @ModelAttribute("answer")
@@ -32,9 +37,9 @@ public class TestController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String test(HttpSession session, Model model) {
+    public String test(HttpSession session, Model model, Principal principal) {
         if (session.getAttribute("test") == null) {
-            model.addAttribute("test", testService.prepareTest());
+            model.addAttribute("test", testService.prepareTest(userService.getByUsername(principal.getName())));
         }
         return redirectToQuestion(1);
     }
@@ -76,6 +81,7 @@ public class TestController {
     public String finishTest(@SessionAttribute Test test, Model model, SessionStatus sessionStatus) {
         TestResult testResult = testService.generateTestResult(test);
         model.addAttribute("testResult", testResult);
+        testService.addTestResult(testResult);
         sessionStatus.setComplete();
         return "test/testResult";
     }

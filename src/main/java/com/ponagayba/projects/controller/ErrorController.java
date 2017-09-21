@@ -26,14 +26,14 @@ public class ErrorController {
         try {
             msg = messageSource.getMessage("error.code." + errorCode, null, locale);
         } catch (NoSuchMessageException e) {
+            errorCode = -1;
             msg = messageSource.getMessage("error.code.default", null, locale);
         }
-        if (errorCode != -1) {
-            mv.addObject("errorCode", errorCode);
-            mv.addObject("message", msg);
-        } else {
-            mv.addObject("errorCode", msg);
+        if (errorCode == -1) {
+            errorCode = 404;
         }
+        mv.addObject("errorCode", errorCode);
+        mv.addObject("message", msg);
         return mv;
     }
 

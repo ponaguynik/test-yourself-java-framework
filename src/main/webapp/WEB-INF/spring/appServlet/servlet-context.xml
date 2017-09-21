@@ -85,6 +85,5 @@
     <bean id="defaultWebSecurityExpressionHandler"
           class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
 
-    <bean name="userAspect" class="com.ponagayba.projects.aspect.UserAspect"/>
     <bean name="testAspect" class="com.ponagayba.projects.aspect.TestAspect"/>
 </beans>

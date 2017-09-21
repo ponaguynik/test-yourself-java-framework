@@ -11,7 +11,7 @@
         <table>
             <thead>
             <tr>
-                <th colspan="2">Result: ${testResult.correctAnswersNum}/${testResult.questionsNum}</th>
+                <th colspan="2">Result: ${testResult.answeredNum}/${testResult.questionsNum}</th>
             </tr>
             </thead>
             <tbody>

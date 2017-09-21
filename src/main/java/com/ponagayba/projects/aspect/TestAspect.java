@@ -10,7 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class TestAspect {
 
     @Around("@annotation(org.springframework.web.bind.annotation.RequestMapping) " +
-            "&& execution(* com.ponagayba.projects.controller.test.TestController.*(..))")
+            "&& execution(* com.ponagayba.projects.controller.TestController.*(..))")
     public Object testAroundAdvice(ProceedingJoinPoint proceedingJoinPoint) {
         if (SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken) {
             return "redirect:/login";

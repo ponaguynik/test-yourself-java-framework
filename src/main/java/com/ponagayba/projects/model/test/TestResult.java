@@ -11,7 +11,7 @@ public class TestResult {
     private LocalDateTime dateTime;
     private Long duration;
     private Integer questionsNum;
-    private Integer correctAnswersNum;
+    private Integer answeredNum;
 
     private List<Question> questions;
     private Integer percent;
@@ -56,12 +56,12 @@ public class TestResult {
         this.questionsNum = questionsNum;
     }
 
-    public Integer getCorrectAnswersNum() {
-        return correctAnswersNum;
+    public Integer getAnsweredNum() {
+        return answeredNum;
     }
 
-    public void setCorrectAnswersNum(Integer correctAnswersNum) {
-        this.correctAnswersNum = correctAnswersNum;
+    public void setAnsweredNum(Integer answeredNum) {
+        this.answeredNum = answeredNum;
     }
 
     public List<Question> getQuestions() {
