@@ -9,7 +9,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @Aspect
 public class TestAspect {
 
-    //Here is last point
     @Around("@annotation(org.springframework.web.bind.annotation.RequestMapping) " +
             "&& execution(* com.ponagayba.projects.controller.test.TestController.*(..))")
     public Object testAroundAdvice(ProceedingJoinPoint proceedingJoinPoint) {

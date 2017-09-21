@@ -4,16 +4,16 @@ main {
 }
 
 div.error-container {
+    margin: 50px auto;
     text-align: center;
-    margin-top: 50px;
 }
 
-p.error {
+p.error-code {
     font-size: 300%;
     font-weight: bold;
 }
 
-p.desc {
+p.error-msg {
     font-size: 250%;
     font-weight: bold;
 }

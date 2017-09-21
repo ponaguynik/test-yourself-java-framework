@@ -5,17 +5,9 @@
     <jsp:param name="title" value="Error" />
 </jsp:include>
     <div class="error-container">
-        <p class="error">${statusCode}</p>
-        <c:choose>
-        <c:when test="${statusCode == 404}">
-            <p class="desc">Page not found.</p>
-        </c:when>
-        <c:when test="${statusCode == 403}">
-            <p class="desc">Access denied.</p>
-        </c:when>
-        <c:otherwise>
-            <p class="desc">Oops! Something went wrong.</p>
-        </c:otherwise>
-    </c:choose>
+        <p class="error-code">${errorCode}</p>
+        <c:if test="${message != null}">
+            <p class="error-msg">${message}</p>
+        </c:if>
     </div>
 <jsp:include page="footer.jsp" />
