@@ -9,21 +9,15 @@ public interface UserDAO {
 
     User getUser(String username, String password);
 
-    User findById(int id);
+    User getById(int id);
 
     User getByUsername(String username);
 
-    void create(User user);
-
-    void updateToken(int userId, String token);
-
-    User findByToken(String token);
-
-    void removeToken(String token);
+    void save(User user);
 
     void updateResults(User user);
 
-    User findByEmail(String email);
+    User getByEmail(String email);
 
     List<User> getAll();
 

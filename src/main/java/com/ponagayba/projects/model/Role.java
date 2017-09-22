@@ -1,8 +1,16 @@
 package com.ponagayba.projects.model;
 
+import javax.persistence.*;
+
+@Table(name = "role", schema = "test_yourself")
+@Entity
 public class Role {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "name")
     private String name;
 
     public Role() {

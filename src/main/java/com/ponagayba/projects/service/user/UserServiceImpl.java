@@ -2,6 +2,8 @@ package com.ponagayba.projects.service.user;
 
 import com.ponagayba.projects.dao.user.RoleDAO;
 import com.ponagayba.projects.dao.user.UserDAO;
+import com.ponagayba.projects.exception.EmailExistsException;
+import com.ponagayba.projects.exception.UsernameExistsException;
 import com.ponagayba.projects.model.Role;
 import com.ponagayba.projects.model.User;
 import com.ponagayba.projects.model.test.TestResult;
@@ -9,11 +11,13 @@ import com.ponagayba.projects.service.test.TestResultService;
 import com.ponagayba.projects.service.test.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.Cookie;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -29,21 +33,13 @@ public class UserServiceImpl implements UserService {
     private TestResultService testResultService;
 
     @Override
-    public User findById(int id) {
-        User result = userDAO.findById(id);
-        if (result != null) {
-            result.setRoles(roleDAO.getUserRoles(result.getId()));
-        }
-        return result;
+    public User getById(int id) {
+        return userDAO.getById(id);
     }
 
     @Override
     public User getUser(String username, String password) {
-        User result = userDAO.getUser(username, password);
-        if (result != null) {
-            result.setRoles(roleDAO.getUserRoles(result.getId()));
-        }
-        return result;
+        return userDAO.getUser(username, password);
     }
 
     @Override
@@ -52,31 +48,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addNewUser(User user) {
-        userDAO.create(user);
-        User userDB = userDAO.getUser(user.getUsername(), user.getPassword());
-        for (Role role : user.getRoles()) {
-            roleDAO.addRoleToUser(userDB.getId(), role);
+    public void addNewUser(User user) throws UsernameExistsException, EmailExistsException {
+        if (usernameExists(user.getUsername())) {
+            throw new UsernameExistsException();
         }
-    }
-
-    @Override
-    public void updateToken(int userId, String token) {
-        userDAO.updateToken(userId, token);
-    }
-
-    @Override
-    public User findByToken(String token) {
-        User result = userDAO.findByToken(token);
-        if (result != null) {
-            result.setRoles(roleDAO.getUserRoles(result.getId()));
+        if (emailExists(user.getEmail())) {
+            throw new EmailExistsException();
         }
-        return result;
-    }
-
-    @Override
-    public void removeToken(String token) {
-        userDAO.removeToken(token);
+        addDefaultRole(user);
+        user.setEnabled(true);
+        userDAO.save(user);
     }
 
     @Override
@@ -87,27 +68,6 @@ public class UserServiceImpl implements UserService {
             user.setBestResult(user.getLastResult());
         }
         userDAO.updateResults(user);
-    }
-
-    @Override
-    public User getUserFromCookies(Cookie[] cookies) {
-        User result = null;
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equalsIgnoreCase("token")) {
-                    result = findByToken(cookie.getValue());
-                }
-            }
-        }
-        if (result != null) {
-            result.setRoles(roleDAO.getUserRoles(result.getId()));
-        }
-        return result;
-    }
-
-    @Override
-    public boolean isEmailFree(String email) {
-        return userDAO.findByEmail(email) == null;
     }
 
     @Override
@@ -133,15 +93,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean emailExists(String email) {
-        return userDAO.findByEmail(email) != null;
+        return userDAO.getByEmail(email) != null;
     }
 
     @Override
     public User getByUsername(String username) {
-        User result = userDAO.getByUsername(username);
-        if (result != null) {
-            result.setRoles(roleDAO.getUserRoles(result.getId()));
-        }
-        return result;
+        return userDAO.getByUsername(username);
+    }
+
+    private void addDefaultRole(User user) {
+        Role roleUser = roleDAO.findByName("ROLE_USER");
+        List<Role> roles = new ArrayList<>();
+        roles.add(roleUser);
+        user.setRoles(roles);
     }
 }

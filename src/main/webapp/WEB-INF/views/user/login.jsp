@@ -12,6 +12,10 @@
         <br>
         <p style="color: red;">${error}</p>
     </c:if>
+    <c:if test="${not empty message}">
+        <br>
+        <p style="color: green;">${message}</p>
+    </c:if>
     <springForm:form action="/j_spring_security_check" method="post">
         <div class="form-container flex-container">
             <label for="username-input">Username:</label>

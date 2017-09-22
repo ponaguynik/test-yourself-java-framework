@@ -1,6 +1,8 @@
 package com.ponagayba.projects.controller;
 
 import com.ponagayba.projects.exception.AuthenticatedException;
+import com.ponagayba.projects.exception.EmailExistsException;
+import com.ponagayba.projects.exception.UsernameExistsException;
 import com.ponagayba.projects.model.User;
 import com.ponagayba.projects.model.test.TestResult;
 import com.ponagayba.projects.service.test.TestResultService;
@@ -58,7 +60,8 @@ public class UserController {
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signUp(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
-                         Model model, Principal principal) throws AuthenticatedException {
+                         Model model, Principal principal)
+            throws AuthenticatedException, EmailExistsException, UsernameExistsException {
         if (principal != null) {
             throw new AuthenticatedException();
         }
@@ -67,7 +70,7 @@ public class UserController {
         }
         userService.addNewUser(user);
         model.addAttribute("message", "New user has been successfully created!");
-        return "redirect:user/login";
+        return "user/login";
     }
 
     @RequestMapping(value = "/user/results", method = RequestMethod.GET)

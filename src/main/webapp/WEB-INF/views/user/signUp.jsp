@@ -26,10 +26,6 @@
             <springForm:label path="password" for="password-input"><spring:message code="label.password"/>:</springForm:label>
             <springForm:input path="password" type="password" id="password-input" cssClass="input-field" required="true"/>
             <br>
-            <springForm:errors cssClass="error"/>
-            <springForm:label path="confPassword" for="conf-password-input"><spring:message code="label.confirm.password"/>:</springForm:label>
-            <springForm:input path="confPassword" type="password" id="conf-password-input" cssClass="input-field" required="true"/>
-            <br>
             <input id="submit" type="submit" value="<spring:message code="button.confirm"/>">
             <a href="<c:url value="/login"/>" id="login"><spring:message code="login"/></a>
         </div>
