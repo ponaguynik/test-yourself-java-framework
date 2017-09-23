@@ -28,7 +28,7 @@ public class AddQuestionController implements Controller {
             result.setAttribute("page", "addQuestion1");
         } else {
             Question question = parseQuestion(request);
-            questionService.addQuestion(question);
+            questionService.create(question);
             result.setRedirect(true);
             result.setView("/admin/questions");
         }

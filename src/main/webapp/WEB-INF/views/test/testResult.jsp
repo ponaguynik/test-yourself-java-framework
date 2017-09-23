@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="springForm" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="format" uri="http://my.custom/functions" %>
 <jsp:include page="../header.jsp">
     <jsp:param name="css" value="testResult.css" />
     <jsp:param name="js" value="highlighter" />
@@ -17,15 +18,15 @@
             <tbody>
             <tr>
                 <td>Duration:</td>
-                <td class="align-center">${testResult.duration}</td>
+                <td class="align-center">${format:formatDuration(testResult.duration)}</td>
             </tr>
             <tr>
                 <td>Date:</td>
-                <td class="align-center">${testResult.dateTime}</td>
+                <td class="align-center">${format:formatLocalDateTime(testResult.dateTime, 'dd.MM.yyyy')}</td>
             </tr>
             <tr>
                 <td>Time:</td>
-                <td class="align-center">${testResult.dateTime}</td>
+                <td class="align-center">${format:formatLocalDateTime(testResult.dateTime, 'HH:mm:ss')}</td>
             </tr>
             </tbody>
         </table>

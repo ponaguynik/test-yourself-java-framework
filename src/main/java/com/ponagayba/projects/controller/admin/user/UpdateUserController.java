@@ -27,7 +27,7 @@ public class UpdateUserController implements Controller {
         int userId = Integer.parseInt(request.getParameter("userId"));
         String username = request.getParameter("username");
         String email = request.getParameter("email");
-        User user = userService.findById(userId);
+        User user = userService.getById(userId);
 
         if (!user.getUsername().equals(username) && userService.usernameExists(username)) {
             result.setAttribute("error", "User with such username already exists.");

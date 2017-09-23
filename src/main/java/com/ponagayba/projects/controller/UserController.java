@@ -5,7 +5,6 @@ import com.ponagayba.projects.exception.EmailExistsException;
 import com.ponagayba.projects.exception.UsernameExistsException;
 import com.ponagayba.projects.model.User;
 import com.ponagayba.projects.model.test.TestResult;
-import com.ponagayba.projects.service.test.TestResultService;
 import com.ponagayba.projects.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -30,9 +29,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private TestResultService testResultService;
 
     @Autowired
     private MessageSource messageSource;
@@ -79,8 +75,8 @@ public class UserController {
             throw new AuthenticationException();
         }
         ModelAndView mv = new ModelAndView("user/results");
-        User user = userService.getByUsername(principal.getName());
-        List<TestResult> results = testResultService.getUserResults(user.getId());
+        User user = userService.getByUsernameWithTestResults(principal.getName());
+        List<TestResult> results = user.getTestResults();
         Collections.reverse(results);
         mv.addObject("results", results);
         return mv;

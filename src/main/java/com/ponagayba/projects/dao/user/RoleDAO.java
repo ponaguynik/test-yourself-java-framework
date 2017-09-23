@@ -8,15 +8,9 @@ import java.util.List;
 
 public interface RoleDAO {
 
-    Role findByName(String name);
-
-    List<Role> getUserRoles(int userId);
+    Role getByName(String name);
 
     List<Role> getAll();
 
-    void deleteUserRoles(int userId);
-
-    void addRoleToUser(int userId, Role role);
-
-    Role findById(int roleId);
+    Role getById(int roleId);
 }

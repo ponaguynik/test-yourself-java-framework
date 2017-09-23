@@ -19,6 +19,4 @@ public interface TestService {
     void answerQuestion(Question question, Answer answer);
 
     void resetAnswer(Question question);
-
-    void addTestResult(TestResult testResult);
 }

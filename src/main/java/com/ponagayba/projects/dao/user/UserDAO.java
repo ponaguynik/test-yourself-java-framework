@@ -13,7 +13,7 @@ public interface UserDAO {
 
     User getByUsername(String username);
 
-    void save(User user);
+    void create(User user);
 
     void updateResults(User user);
 
@@ -21,7 +21,7 @@ public interface UserDAO {
 
     List<User> getAll();
 
-    void deleteUser(int userId);
+    void delete(User user);
 
     void update(User user);
 }

@@ -4,12 +4,14 @@ import com.ponagayba.projects.dao.test.QuestionDAO;
 import com.ponagayba.projects.model.test.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+
+@Transactional
 @Service
 public class QuestionServiceImpl implements QuestionService {
 
@@ -61,17 +63,17 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public void addQuestion(Question question)  {
-        questionDAO.addQuestion(question);
+        questionDAO.create(question);
     }
 
     @Override
-    public void deleteQuestion(int questionId)  {
-        questionDAO.delete(questionId);
+    public void deleteQuestion(Question question)  {
+        questionDAO.delete(question);
     }
 
     @Override
-    public Question findById(int questionId)  {
-        return questionDAO.findById(questionId);
+    public Question getById(int questionId)  {
+        return questionDAO.getById(questionId);
     }
 
     @Override

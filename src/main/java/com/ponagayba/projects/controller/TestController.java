@@ -81,7 +81,7 @@ public class TestController {
     public String finishTest(@SessionAttribute Test test, Model model, SessionStatus sessionStatus) {
         TestResult testResult = testService.generateTestResult(test);
         model.addAttribute("testResult", testResult);
-        testService.addTestResult(testResult);
+        userService.addTestResult(testResult);
         sessionStatus.setComplete();
         return "test/testResult";
     }

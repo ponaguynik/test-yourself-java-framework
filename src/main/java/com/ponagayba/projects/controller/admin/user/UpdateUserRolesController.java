@@ -26,7 +26,7 @@ public class UpdateUserRolesController implements Controller {
     public ModelAndView process(HttpServletRequest request) throws ServletException, IOException, SQLException {
         ModelAndView result = new ModelAndView("admin/admin");
         int userId = Integer.parseInt(request.getParameter("userId"));
-        User user = userService.findById(userId);
+        User user = userService.getById(userId);
         int[] rolesId = toIntArray(request.getParameterValues("role"));
         user.setRoles(getRolesById(rolesId, roleService));
         roleService.updateUserRoles(user);
@@ -48,7 +48,7 @@ public class UpdateUserRolesController implements Controller {
     private List<Role> getRolesById(int[] rolesId, RoleService roleService) throws SQLException {
         List<Role> result = new ArrayList<>();
         for (int roleId : rolesId) {
-            result.add(roleService.findById(roleId));
+            result.add(roleService.getById(roleId));
         }
         return result;
     }*/

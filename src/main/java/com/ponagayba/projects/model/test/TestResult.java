@@ -1,19 +1,42 @@
 package com.ponagayba.projects.model.test;
 
 
+import com.ponagayba.projects.model.User;
+import com.ponagayba.projects.model.converter.DateTimeConverter;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Table(name = "test_result", schema = "test_yourself")
+@Entity
 public class TestResult {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer userId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Convert(converter = DateTimeConverter.class)
+    @Column(name = "date_time", columnDefinition = "varchar")
     private LocalDateTime dateTime;
+
+    @Column(name = "duration", columnDefinition = "varchar")
     private Long duration;
+
+    @Column(name = "questions_num", columnDefinition = "varchar")
     private Integer questionsNum;
+
+    @Column(name = "answered_num", columnDefinition = "varchar")
     private Integer answeredNum;
 
+    @Transient
     private List<Question> questions;
+
+    @Transient
     private Integer percent;
 
     public Integer getId() {
@@ -24,12 +47,12 @@ public class TestResult {
         this.id = id;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDateTime getDateTime() {

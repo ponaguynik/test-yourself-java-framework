@@ -11,6 +11,8 @@ public interface UserService {
 
     User getById(int id);
 
+    User getByIdWithTestResults(int id);
+
     User getUser(String username, String password);
 
     boolean usernameExists(String username);
@@ -21,7 +23,7 @@ public interface UserService {
 
     List<User> getAll();
 
-    void deleteUser(int userId);
+    void deleteUser(User user);
 
     void updateUser(User user);
 
@@ -29,4 +31,7 @@ public interface UserService {
 
     User getByUsername(String username);
 
+    User getByUsernameWithTestResults(String username);
+
+    void addTestResult(TestResult testResult);
 }

@@ -7,13 +7,13 @@ import com.ponagayba.projects.exception.UsernameExistsException;
 import com.ponagayba.projects.model.Role;
 import com.ponagayba.projects.model.User;
 import com.ponagayba.projects.model.test.TestResult;
-import com.ponagayba.projects.service.test.TestResultService;
 import com.ponagayba.projects.service.test.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -29,12 +29,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private TestService testService;
 
-    @Autowired
-    private TestResultService testResultService;
-
     @Override
     public User getById(int id) {
         return userDAO.getById(id);
+    }
+
+    @Override
+    public User getByIdWithTestResults(int id) {
+        User user = userDAO.getById(id);
+        if (user != null) {
+            user.getTestResults().size();
+        }
+        return user;
     }
 
     @Override
@@ -57,7 +63,7 @@ public class UserServiceImpl implements UserService {
         }
         addDefaultRole(user);
         user.setEnabled(true);
-        userDAO.save(user);
+        userDAO.create(user);
     }
 
     @Override
@@ -72,18 +78,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAll() {
-        List<User> result = userDAO.getAll();
-        for (User user : result) {
-            user.setRoles(roleDAO.getUserRoles(user.getId()));
-        }
-        return result;
+        return userDAO.getAll();
     }
 
     @Override
-    public void deleteUser(int userId) {
-        testResultService.deleteUserTestResults(userId);
-        roleDAO.deleteUserRoles(userId);
-        userDAO.deleteUser(userId);
+    public void deleteUser(User user) {
+        userDAO.delete(user);
     }
 
     @Override
@@ -102,9 +102,25 @@ public class UserServiceImpl implements UserService {
     }
 
     private void addDefaultRole(User user) {
-        Role roleUser = roleDAO.findByName("ROLE_USER");
+        Role roleUser = roleDAO.getByName("ROLE_USER");
         List<Role> roles = new ArrayList<>();
         roles.add(roleUser);
         user.setRoles(roles);
+    }
+
+    @Override
+    public void addTestResult(TestResult testResult) {
+        User user = testResult.getUser();
+        user.getTestResults().add(testResult);
+        userDAO.update(user);
+    }
+
+    @Override
+    public User getByUsernameWithTestResults(String username) {
+        User user = userDAO.getByUsername(username);
+        if (user != null) {
+            user.getTestResults().size();
+        }
+        return user;
     }
 }

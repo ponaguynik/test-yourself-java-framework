@@ -17,9 +17,9 @@ public interface QuestionService {
 
     void addQuestion(Question question) ;
 
-    void deleteQuestion(int questionId) ;
+    void deleteQuestion(Question question) ;
 
-    Question findById(int questionId) ;
+    Question getById(int questionId) ;
 
     void updateQuestion(Question question) ;
 }

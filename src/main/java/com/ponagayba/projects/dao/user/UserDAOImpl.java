@@ -33,15 +33,14 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
     @Override
     public User getByUsername(String username) {
-        String hql = "from User where username=:username";
         return (User) sessionFactory.getCurrentSession()
-                .createQuery(hql)
+                .createQuery("from User where username=:username")
                 .setParameter("username", username)
                 .uniqueResult();
     }
 
     @Override
-    public void save(User user) {
+    public void create(User user) {
         sessionFactory.getCurrentSession().persist(user);
     }
 
@@ -66,12 +65,8 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     }
 
     @Override
-    public void deleteUser(int userId) {
-        Session session = sessionFactory.getCurrentSession();
-        User user = (User) session.load(User.class, userId);
-        if (user != null) {
-            session.delete(user);
-        }
+    public void delete(User user) {
+        sessionFactory.getCurrentSession().delete(user);
     }
 
     @Override

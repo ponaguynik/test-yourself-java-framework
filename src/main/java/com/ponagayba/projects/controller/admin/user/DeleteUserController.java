@@ -18,7 +18,7 @@ public class DeleteUserController implements Controller {
     public ModelAndView process(HttpServletRequest request) throws ServletException, IOException, SQLException {
         ModelAndView result = new ModelAndView("/admin/users");
         int userId = Integer.parseInt(request.getParameter("userId"));
-        userService.deleteUser(userId);
+        userService.delete(userId);
         result.setRedirect(true);
         return result;
     }*/

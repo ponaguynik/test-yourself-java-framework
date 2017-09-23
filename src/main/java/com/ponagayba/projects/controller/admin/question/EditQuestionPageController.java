@@ -19,7 +19,7 @@ public class EditQuestionPageController implements Controller {
     public ModelAndView process(HttpServletRequest request) throws ServletException, IOException, SQLException {
         ModelAndView result = new ModelAndView("admin/admin");
         int questionId = Integer.parseInt(request.getParameter("questionId"));
-        Question question = questionService.findById(questionId);
+        Question question = questionService.getById(questionId);
         result.setAttribute("question", question);
         result.setAttribute("page", "editQuestion");
         return result;

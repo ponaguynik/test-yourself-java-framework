@@ -12,7 +12,7 @@ public class AddQuestionPageController implements Controller {
     /*@Override
     public ModelAndView process(HttpServletRequest request) throws ServletException, IOException, SQLException {
         ModelAndView result = new ModelAndView("admin/admin");
-        result.setAttribute("page", "addQuestion");
+        result.setAttribute("page", "create");
         return result;
     }*/
 }

@@ -25,7 +25,7 @@ public class ManageUserPageController implements Controller {
     public ModelAndView process(HttpServletRequest request) throws ServletException, IOException, SQLException {
         ModelAndView result = new ModelAndView("admin/admin");
         int userId = Integer.parseInt(request.getParameter("userId"));
-        User managedUser = userService.findById(userId);
+        User managedUser = userService.getById(userId);
         List<Role> roles = roleService.getAll();
         result.setAttribute("managedUser", managedUser);
         result.setAttribute("roles", roles);

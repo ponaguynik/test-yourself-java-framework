@@ -1,18 +1,45 @@
 package com.ponagayba.projects.model.test;
 
+import com.ponagayba.projects.model.converter.QuestionConverter;
+
+import javax.persistence.*;
 import java.util.List;
 
+@Table(name = "question", schema = "test_yourself")
+@Entity
 public class Question {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private int num;
+
+    @Column(name = "question", columnDefinition = "clob")
     private String question;
+
+    @Column(name = "code", columnDefinition = "clob")
     private String code;
+
+    @Convert(converter = QuestionConverter.class)
+    @Column(name = "options", columnDefinition = "clob")
     private List<String> options;
+
+    @Convert(converter = QuestionConverter.class)
+    @Column(name = "answer")
     private List<String> correctAnswers;
+
+    @Transient
+    private int num;
+
+    @Transient
     private List<String> answers;
+
+    @Transient
     private boolean correct;
+
+    @Transient
     private boolean answered;
+
+    @Transient
     private boolean active;
 
     public Question() {

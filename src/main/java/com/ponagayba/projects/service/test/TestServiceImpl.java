@@ -5,14 +5,17 @@ import com.ponagayba.projects.model.test.Answer;
 import com.ponagayba.projects.model.test.Question;
 import com.ponagayba.projects.model.test.Test;
 import com.ponagayba.projects.model.test.TestResult;
+import com.ponagayba.projects.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Service
 public class TestServiceImpl implements TestService {
 
@@ -20,12 +23,12 @@ public class TestServiceImpl implements TestService {
     private QuestionService questionService;
 
     @Autowired
-    private TestResultService testResultService;
+    private UserService userService;
 
     @Override
     public TestResult generateTestResult(Test test) {
         TestResult result = new TestResult();
-        result.setUserId(test.getUserId());
+        result.setUser(userService.getByIdWithTestResults(test.getUserId()));
         List<Question> questions = test.getQuestions();
         checkAnswers(questions);
         result.setQuestions(questions);
@@ -50,11 +53,6 @@ public class TestServiceImpl implements TestService {
             }
         }
         return Math.round(correctAnswers / (float) questionsTotal * 100);
-    }
-
-    @Override
-    public void addTestResult(TestResult testResult) {
-        testResultService.addTestResult(testResult);
     }
 
     @Override
@@ -92,7 +90,7 @@ public class TestServiceImpl implements TestService {
 
     private void checkAnswers(List<Question> questions) {
         for (Question question : questions) {
-            if (question.getAnswers().equals(question.getCorrectAnswers())) {
+            if (question.getCorrectAnswers().equals(question.getAnswers())) {
                 question.setCorrect(true);
             } else {
                 question.setCorrect(false);

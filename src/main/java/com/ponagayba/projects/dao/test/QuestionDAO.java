@@ -9,11 +9,11 @@ public interface QuestionDAO {
 
     List<Question> getAll();
 
-    void addQuestion(Question question);
+    void create(Question question);
 
-    void delete(int questionId);
+    void delete(Question question);
 
-    Question findById(int questionId);
+    Question getById(int id);
 
     void update(Question question);
 }

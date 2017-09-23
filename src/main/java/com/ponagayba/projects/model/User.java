@@ -1,5 +1,6 @@
 package com.ponagayba.projects.model;
 
+import com.ponagayba.projects.model.test.TestResult;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
@@ -48,6 +49,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<Role> roles;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<TestResult> testResults;
 
     public User() {
     }
@@ -106,6 +110,14 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public List<TestResult> getTestResults() {
+        return testResults;
+    }
+
+    public void setTestResults(List<TestResult> testResults) {
+        this.testResults = testResults;
     }
 
     public List<Role> getRoles() {

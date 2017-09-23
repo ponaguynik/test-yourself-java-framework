@@ -1,7 +1,10 @@
 package com.ponagayba.projects.dao.test;
 
 import com.ponagayba.projects.dao.AbstractDAO;
+import com.ponagayba.projects.model.User;
 import com.ponagayba.projects.model.test.Question;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -10,63 +13,33 @@ import java.util.List;
 @Repository
 public class QuestionDAOImpl extends AbstractDAO implements QuestionDAO {
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
     @Override
     public List<Question> getAll() {
-        String query =
-                "SELECT id, question, code, options, answer " +
-                "FROM test_yourself.question;";
-        return jdbcTemplate.query(query, new QuestionRowMapper());
+        return sessionFactory.getCurrentSession()
+                .createCriteria(Question.class)
+                .list();
     }
 
     @Override
-    public void addQuestion(Question question) {
-        String options = toStoringForm(question.getOptions());
-        String answer = toStoringForm(question.getCorrectAnswers());
-        String query =
-                "INSERT INTO test_yourself.question(question, code, options, answer)" +
-                "VALUES(?, ?, ?, ?, ?);";
-        jdbcTemplate.update(query, question.getQuestion(), question.getCode(), options,
-                answer);
+    public void create(Question question) {
+        sessionFactory.getCurrentSession().persist(question);
     }
 
     @Override
-    public void delete(int questionId) {
-        String query =
-                "DELETE FROM test_yourself.question " +
-                "WHERE id=?;";
-        jdbcTemplate.update(query, questionId);
+    public void delete(Question question) {
+        sessionFactory.getCurrentSession().delete(question);
     }
 
     @Override
-    public Question findById(int questionId) {
-        String query =
-                "SELECT id, question, code, options, answer " +
-                "FROM test_yourself.question " +
-                "WHERE id=?;";
-        return jdbcTemplate.queryForObject(query, new Object[] {questionId}, new QuestionRowMapper());
+    public Question getById(int id) {
+        return (Question) sessionFactory.getCurrentSession().load(Question.class, id);
     }
 
     @Override
     public void update(Question question) {
-        String options = toStoringForm(question.getOptions());
-        String answer = toStoringForm(question.getCorrectAnswers());
-        String query =
-                "UPDATE test_yourself.question " +
-                        "SET question=?, code=?, options=?, answer=? " +
-                        "WHERE id=?;";
-        jdbcTemplate.update(query, question.getQuestion(), question.getCode(), options,
-                answer, question.getId());
-    }
-
-    private String toStoringForm(List<String> items) {
-        if (items.isEmpty()) {
-            return "";
-        }
-        StringBuilder sb = new StringBuilder();
-        for (String item : items) {
-            sb.append(item).append("&");
-        }
-        sb.deleteCharAt(sb.length() - 1);
-        return sb.toString();
+        sessionFactory.getCurrentSession().update(question);
     }
 }
