@@ -18,17 +18,17 @@ public class RoleServiceImpl implements RoleService {
     private RoleDAO roleDAO;
 
     @Override
-    public Role getByName(String name) throws SQLException {
+    public Role getByName(String name) {
         return roleDAO.getByName(name);
     }
 
     @Override
-    public List<Role> getAll() throws SQLException {
+    public List<Role> getAll() {
         return roleDAO.getAll();
     }
 
     @Override
-    public Role getById(int roleId) throws SQLException {
+    public Role getById(int roleId) {
         return roleDAO.getById(roleId);
     }
 

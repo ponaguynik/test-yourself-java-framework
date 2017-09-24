@@ -35,7 +35,7 @@ public class QuestionDAOImpl extends AbstractDAO implements QuestionDAO {
 
     @Override
     public Question getById(int id) {
-        return (Question) sessionFactory.getCurrentSession().load(Question.class, id);
+        return (Question) sessionFactory.getCurrentSession().get(Question.class, id);
     }
 
     @Override

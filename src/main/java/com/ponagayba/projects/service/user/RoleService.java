@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface RoleService {
 
-    Role getByName(String name) throws SQLException;
+    Role getByName(String name);
 
-    List<Role> getAll() throws SQLException;
+    List<Role> getAll();
 
-    Role getById(int roleId) throws SQLException;
+    Role getById(int roleId);
 }

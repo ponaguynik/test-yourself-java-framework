@@ -2,6 +2,7 @@ package com.ponagayba.projects.dao.user;
 
 import com.ponagayba.projects.dao.AbstractDAO;
 import com.ponagayba.projects.model.User;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
     @Override
     public User getById(int id) {
-        return (User) sessionFactory.getCurrentSession().load(User.class, id);
+        return (User) sessionFactory.getCurrentSession().get(User.class, id);
     }
 
     @Override
@@ -61,6 +62,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     public List<User> getAll() {
         return sessionFactory.getCurrentSession()
                 .createCriteria(User.class)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
     }
 

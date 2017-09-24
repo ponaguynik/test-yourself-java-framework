@@ -46,7 +46,7 @@
     </mvc:interceptors>
 
     <security:http auto-config="true">
-        <security:intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <security:form-login
             login-page="/login"
             default-target-url="/"
@@ -57,7 +57,7 @@
         />
         <security:logout
                 logout-url="/j_spring_security_logout"
-                logout-success-url="/login?logout"/>
+                logout-success-url="/login"/>
         <security:csrf/>
     </security:http>
 

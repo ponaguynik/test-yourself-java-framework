@@ -30,20 +30,4 @@ public class UserControllerAdvice {
     public String authenticatedException() {
         return "redirect:/";
     }
-
-    @ExceptionHandler(UsernameExistsException.class)
-    public ModelAndView usernameExistsException(Locale locale) {
-        ModelAndView mv = new ModelAndView("user/signUp");
-        mv.addObject("error", messageSource.getMessage("user.username.exists", null, locale));
-        mv.addObject("user", new User());
-        return mv;
-    }
-
-    @ExceptionHandler(EmailExistsException.class)
-    public ModelAndView emailExistsException(Locale locale) {
-        ModelAndView mv = new ModelAndView("user/signUp");
-        mv.addObject("error", messageSource.getMessage("user.email.exists", null, locale));
-        mv.addObject("user", new User());
-        return mv;
-    }
 }

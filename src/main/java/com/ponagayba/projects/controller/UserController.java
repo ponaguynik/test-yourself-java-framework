@@ -11,10 +11,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.naming.AuthenticationException;
@@ -79,6 +76,22 @@ public class UserController {
         List<TestResult> results = user.getTestResults();
         Collections.reverse(results);
         mv.addObject("results", results);
+        return mv;
+    }
+
+    @ExceptionHandler(UsernameExistsException.class)
+    public ModelAndView usernameExistsException(Locale locale) {
+        ModelAndView mv = new ModelAndView("user/signUp");
+        mv.addObject("error", messageSource.getMessage("user.username.exists", null, locale));
+        mv.addObject("user", new User());
+        return mv;
+    }
+
+    @ExceptionHandler(EmailExistsException.class)
+    public ModelAndView emailExistsException(Locale locale) {
+        ModelAndView mv = new ModelAndView("user/signUp");
+        mv.addObject("error", messageSource.getMessage("user.email.exists", null, locale));
+        mv.addObject("user", new User());
         return mv;
     }
 }

@@ -1,0 +1,148 @@
+aside {
+    flex-direction: column;
+    flex: 1;
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-right: 30px;
+}
+
+main {
+    justify-content: flex-start;
+    flex-direction: column;
+    flex: 5;
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px 20px;
+}
+
+aside h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 4px;
+    font-weight: normal;
+}
+
+aside li {
+    list-style-type: none;
+    margin-bottom: 5px;
+}
+
+aside li:hover {
+    background-color: #969696;
+    color: white;
+}
+
+aside li a {
+    color: #5D5D5D;
+    text-decoration: none;
+    font-size: 110%;
+    display: block;
+    padding: 2px 6px;
+}
+
+aside li a:hover {
+    color: white;
+    font-weight: bold;
+}
+
+
+/*Manage user*/
+.user-content {
+    flex-direction: row;
+    width: 100%;
+}
+
+.user-form, .role-container {
+    flex: 1;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    padding: 16px;
+    align-items: flex-start;
+    width: 100%;
+    border: 2px solid #EEEEEE;
+    border-radius: 20px;
+}
+
+.user-form {
+    margin-right: 5%;
+}
+
+.role-container {
+    justify-content: center;
+    align-items: center;
+}
+
+.user-form input, .update-btn {
+    width: 100%;
+    padding: 4px 6px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+input.update-btn {
+    width: 50%;
+    margin-top: 15px;
+    align-self: center;
+    cursor: pointer;
+    background: url(../../images/button.png) repeat-x;
+    background-size: contain;
+    border: 0.5px solid #969696;
+}
+
+.update-btn:active {
+    background-image: url(../../images/button-pressed.png);
+}
+
+.roles div {
+    flex-direction: row;
+    justify-content: center;
+    margin: 8px;
+}
+
+.roles div input {
+    margin-right: 10px;
+}
+
+.roles div input, .roles div label {
+    cursor: pointer;
+}
+
+form.flex-container {
+    flex-direction: column;
+}
+
+.change-password-form {
+    width: 42%;
+    flex-direction: column;
+    padding: 16px;
+    border: 2px solid #EEEEEE;
+    border-radius: 20px;
+    margin-top: 50px;
+}
+
+.change-password-form input {
+    width: 100%;
+    padding: 4px 6px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+input.change-btn {
+    align-self: center;
+    cursor: pointer;
+    background: url(../../images/button.png) repeat-x;
+    background-size: contain;
+    border: 0.5px solid #969696;
+}
+
+.change-password-form h2 {
+    align-self: center;
+    margin-bottom: 15px;
+    font-weight: normal;
+}
