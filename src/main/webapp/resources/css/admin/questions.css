@@ -1,0 +1,127 @@
+/*Common*/
+aside {
+    flex-direction: column;
+    flex: 1;
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-right: 30px;
+}
+
+main {
+    justify-content: flex-start;
+    flex-direction: column;
+    flex: 5;
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px 20px;
+}
+
+aside h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 4px;
+    font-weight: normal;
+}
+
+aside li {
+    list-style-type: none;
+    margin-bottom: 5px;
+}
+
+aside li:hover {
+    background-color: #969696;
+    color: white;
+}
+
+aside li a {
+    color: #5D5D5D;
+    text-decoration: none;
+    font-size: 110%;
+    display: block;
+    padding: 2px 6px;
+}
+
+aside li a:hover {
+    color: white;
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #cccccc;
+}
+
+th {
+    padding: 10px 5px;
+    font-weight: bold;
+}
+
+td {
+    padding: 8px 6px;
+    vertical-align: middle;
+}
+
+td.td-num {
+    text-align: center;
+}
+
+td.actions {
+    text-align: center;
+    padding: 8px 0;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+.delete-btn {
+    display: inline;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+th.th-num {
+    width: 5%;
+}
+
+th.th-question {
+    width: 37%;
+}
+
+th.th-options{
+    width: 38%;
+}
+
+th.th-answers {
+    width: 10%;
+}
+
+th.th-actions {
+    width: 10%;
+}
+
+a.add-qn-btn {
+    width: 20%;
+    padding: 4px 6px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 0.5px solid #969696;
+    box-sizing: border-box;
+    cursor: pointer;
+    background: url(../../images/button.png) repeat-x;
+    background-size: contain;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+}
+
+a.add-qn-btn:active {
+    background-image: url(../../images/button-pressed.png);
+}

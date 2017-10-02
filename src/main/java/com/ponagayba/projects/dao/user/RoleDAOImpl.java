@@ -14,9 +14,6 @@ import java.util.List;
 @Repository
 public class RoleDAOImpl extends AbstractDAO implements RoleDAO {
 
-    @Autowired
-    private SessionFactory sessionFactory;
-
     @Override
     public Role getById(int roleId) {
         return (Role) sessionFactory.getCurrentSession().get(Role.class, roleId);

@@ -17,6 +17,7 @@
         <script src="${pageContext.request.contextPath}/resources/js/highlight.pack.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
     </c:if>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>${param.title}</title>
 </head>
 <body>

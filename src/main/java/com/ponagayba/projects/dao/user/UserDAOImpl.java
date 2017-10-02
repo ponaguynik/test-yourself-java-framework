@@ -13,10 +13,6 @@ import java.util.List;
 @Repository
 public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
-    @Autowired
-    private SessionFactory sessionFactory;
-
-
     @Override
     public User getById(int id) {
         return (User) sessionFactory.getCurrentSession().get(User.class, id);

@@ -1,6 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<jsp:include page="../header.jsp">
+    <jsp:param name="css" value="admin/questions.css" />
+    <jsp:param name="title" value="Questions" />
+</jsp:include>
+<jsp:include page="adminMenu.jsp"/>
 <script>
     function deleteConf(qnId) {
         if (confirm("Do you want to delete the question?")) {
@@ -8,19 +13,20 @@
         }
     }
 </script>
+<main class="flex-container">
 <a class="add-qn-btn" href="<c:url value="/admin/questions/add"/>">Add New Question</a>
 <table>
     <tr>
         <th class="th-num">№</th>
         <th class="th-question">Question</th>
         <th class="th-options">Options</th>
-        <th class="th-chosenOptions">Answer</th>
+        <th class="th-answers">Answer</th>
         <th class="th-actions">Actions</th>
     </tr>
-    <c:forEach var="question" items="${requestScope.questions}" varStatus="qnCount">
+    <c:forEach var="question" items="${questions}" varStatus="qnCount">
         <tr>
-            <td class="td-num"><c:out value="${qnCount.index+1}"/></td>
-            <td><c:out value="${question.question}"/></td>
+            <td class="td-num">${qnCount.index+1}</td>
+            <td>${question.question}</td>
             <td>
                 <c:forEach var="option" items="${question.options}" varStatus="count">
                     <c:choose>
@@ -48,13 +54,15 @@
             <td class="actions">
                 <a class="edit-btn" href="
                     <c:url value="/admin/questions/edit">
-                            <c:param name="questionId" value="${question.id}"/>
+                            <c:param name="id" value="${question.id}"/>
                     </c:url>">Edit</a>
                 <form id="deleteQuestionForm${question.id}" action="<c:url value="/admin/questions/delete"/>" method="post">
-                    <input type="hidden" name="questionId" value="${question.id}">
+                    <input type="hidden" name="id" value="${question.id}">
                 </form>
                 <button class="delete-btn" name="deleteQuestion" onclick="deleteConf(${question.id})" value="delete">Delete</button>
             </td>
         </tr>
     </c:forEach>
 </table>
+</main>
+<jsp:include page="../footer.jsp" />

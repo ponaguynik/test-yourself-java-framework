@@ -13,9 +13,6 @@ import java.util.List;
 @Repository
 public class QuestionDAOImpl extends AbstractDAO implements QuestionDAO {
 
-    @Autowired
-    private SessionFactory sessionFactory;
-
     @Override
     public List<Question> getAll() {
         return sessionFactory.getCurrentSession()

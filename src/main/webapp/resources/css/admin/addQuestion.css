@@ -1,0 +1,120 @@
+aside {
+    flex-direction: column;
+    flex: 1;
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-right: 30px;
+}
+
+main {
+    justify-content: flex-start;
+    flex-direction: column;
+    flex: 5;
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px 20px;
+}
+
+aside h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 4px;
+    font-weight: normal;
+}
+
+aside li {
+    list-style-type: none;
+    margin-bottom: 5px;
+}
+
+aside li:hover {
+    background-color: #969696;
+    color: white;
+}
+
+aside li a {
+    color: #5D5D5D;
+    text-decoration: none;
+    font-size: 110%;
+    display: block;
+    padding: 2px 6px;
+}
+
+aside li a:hover {
+    color: white;
+    font-weight: bold;
+}
+
+/*Add question*/
+div.add-question {
+    flex-direction: column;
+    width: 40%;
+    margin: auto;
+    background-color: white;
+    border-radius: 15px;
+    align-items: center;
+    padding: 18px;
+}
+
+div.hor {
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+    align-items: center;
+}
+
+form.config-form {
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    width: 100%;
+}
+
+.config-form .submit-btn {
+    margin-top: 10px;
+    align-self: flex-end;
+    padding: 4px 6px;
+    cursor: pointer;
+    background: url(../../images/button.png) repeat-x;
+    background-size: contain;
+    border: 0.5px solid #969696;
+}
+
+.config-form .submit-btn:active {
+    background-image: url(../../images/button-pressed.png);
+}
+
+label {
+    margin-right: 5px;
+}
+
+.config-form input.text {
+    border: 1px solid darkgrey;
+    padding: 3px 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#question {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.config-form textarea.code-field {
+    min-width: 100%;
+    max-width: 500px;
+    max-height: 400px;
+}
+
+.config-form input[type="checkbox"] {
+     margin-right: 5px;
+}
+
+.margin-top {
+    margin-top: 10px;
+}
+
+.margin-bottom {
+    margin-bottom: 10px;
+}
