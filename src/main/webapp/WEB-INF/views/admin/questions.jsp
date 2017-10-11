@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="springForm" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="../header.jsp">
     <jsp:param name="css" value="admin/questions.css" />
     <jsp:param name="title" value="Questions" />
@@ -15,6 +16,12 @@
 </script>
 <main class="flex-container">
 <a class="add-qn-btn" href="<c:url value="/admin/questions/add"/>">Add New Question</a>
+    <c:if test="${message != null}">
+        <p class="message">${message}</p>
+    </c:if>
+    <c:if test="${error != null}">
+        <p class="error">${error}</p>
+    </c:if>
 <table>
     <tr>
         <th class="th-num">№</th>
@@ -52,13 +59,9 @@
                 </c:forEach>
             </td>
             <td class="actions">
-                <a class="edit-btn" href="
-                    <c:url value="/admin/questions/edit">
-                            <c:param name="id" value="${question.id}"/>
-                    </c:url>">Edit</a>
-                <form id="deleteQuestionForm${question.id}" action="<c:url value="/admin/questions/delete"/>" method="post">
+                <springForm:form id="deleteQuestionForm${question.id}" action="/admin/questions/delete" method="post">
                     <input type="hidden" name="id" value="${question.id}">
-                </form>
+                </springForm:form>
                 <button class="delete-btn" name="deleteQuestion" onclick="deleteConf(${question.id})" value="delete">Delete</button>
             </td>
         </tr>

@@ -77,3 +77,11 @@ footer {
 	color: #FFF;
 	background: transparent url(../images/tab.png) repeat;
 }
+
+.message {
+	color: green;
+}
+
+.error {
+	color: red;
+}
